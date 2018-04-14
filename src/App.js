@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { makepuzzle, solvepuzzle, ratepuzzle } from "sudoku";
 import { List } from "immutable";
+import Board from "./sudoku";
+
 const x = makepuzzle();
 const y = solvepuzzle(x);
 let arr = [];
@@ -18,22 +20,8 @@ const board = y.reduce((acc, j, i) => {
   }
 }, new List());
 
-console.log(board.toJS());
-const buildRow = ({ value, answer }) => (
-  <p>{value === null ? "null" : value}</p>
-);
-const buildBoard = x => {
-  return (
-    <div
-      style={{
-        backgroundColor: "red",
-        display: "flex"
-      }}
-    >
-      {x.map(buildRow)}
-    </div>
-  );
-};
+// console.log(board.toJS());
+
 class App extends Component {
   render() {
     return (
@@ -42,7 +30,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        {board.map(buildBoard)}
+        <Board board={board} />
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
