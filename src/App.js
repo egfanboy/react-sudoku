@@ -10,12 +10,13 @@ const y = solvepuzzle(x);
 let arr = [];
 let l = 0;
 const board = y.reduce((acc, j, i) => {
+  const formatValue = v => (v === null ? null : v + 1);
   if (arr.length === 8) {
-    const y = [...arr, { answer: j, value: x[i] }];
+    const y = [...arr, { answer: formatValue(j), value: formatValue(x[i]) }];
     arr = [];
     return acc.push(y);
   } else {
-    arr = [...arr, { answer: j, value: x[i] }];
+    arr = [...arr, { answer: formatValue(j), value: formatValue(x[i]) }];
     return acc;
   }
 }, new List());
