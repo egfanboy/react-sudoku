@@ -1,29 +1,15 @@
 import React, { Fragment } from "react";
 import styled, { css } from "styled-components";
-
-const OriginalStyle = css`
-  font-weight: bold;
-  font-size: 20px;
-  color: blue;
-  box-shadow: inset 0 0 0 25px #53a7ea;
-`;
+import ValueWrapper from "./value-wrapper";
 
 const Main = styled.div`
-  display: flex;
   position: relative;
-  transition: all 0.5s;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ isGrey }) => (isGrey ? "rgba(125,125,125,0.3)" : "")};
-  ${({ isOriginal, isSelected }) => (isOriginal ? OriginalStyle : null)};
-  background-color: ${({ isSelected, isOriginal }) =>
-    isSelected ? "rgba(0,0,0,0.2)" : ""};
-
   width: 50px;
   height: 50px;
-  border-left: solid 1px black;
-  border-bottom: ${({ isLastRow }) => (isLastRow ? "" : " solid 1px black")};
-
+  border-right:${({ isThickRight, isLastColumn }) =>
+    isThickRight ? "solid 5px black" : isLastColumn ? "" : "solid 1px black"} ;
+  border-bottom:${({ isThickBottom, isLastRow }) =>
+    isThickBottom ? "solid 5px black" : isLastRow ? "" : "solid 1px black"} ;
   &:hover {
     cursor: pointer;
   }
@@ -35,7 +21,7 @@ const Main = styled.div`
     left:0;
     top:0;
     background-color: ${({ isSelected, isOriginal }) =>
-      isSelected ? "rgba(0,0,0,0.4)" : ""};
+      isSelected ? "rgba(255,0,0,0.3)" : ""};
   }
 `;
 
@@ -87,9 +73,10 @@ class SudokuSquare extends React.Component {
     return (
       <Main
         isSelected={this.isHighlighted() ? 1 : 0}
-        isOriginal={this.isOriginal() ? 1 : 0}
+        isLastColumn={index === 9 ? 1 : 0}
         isLastRow={rowIndex === 9 ? 1 : 0}
-        isGrey={this.isGreySquare() ? 1 : 0}
+        isThickRight={index === 3 || index === 6 ? 1 : 0}
+        isThickBottom={rowIndex === 3 || rowIndex === 6 ? 1 : 0}
         onClick={() =>
           setSelectedBoardIndexes({
             selectedBoardIndex: boardIndex,
@@ -98,7 +85,12 @@ class SudokuSquare extends React.Component {
           })
         }
       >
-        {initialValue || value}
+        <ValueWrapper
+          isOriginal={this.isOriginal() ? 1 : 0}
+          isHighlighted={this.isHighlighted() ? 1 : 0}
+          isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}
+          value={initialValue || value}
+        />
       </Main>
     );
   }
