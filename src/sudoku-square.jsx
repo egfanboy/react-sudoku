@@ -1,25 +1,43 @@
-import React from "react";
-import styled from "styled-components";
+import React, { Fragment } from "react";
+import styled, { css } from "styled-components";
+
+const OriginalStyle = css`
+  font-weight: bold;
+  font-size: 20px;
+  color: blue;
+  box-shadow: inset 0 0 0 25px #53a7ea;
+`;
 
 const Main = styled.div`
   display: flex;
+  position: relative;
   transition: all 0.5s;
   justify-content: center;
   align-items: center;
-  background-color: ${({ isGrey }) => (isGrey ? "grey" : "")};
-  background-color: ${({ isOriginal }) => (isOriginal ? "orange" : "")};
+  background-color: ${({ isGrey }) => (isGrey ? "rgba(125,125,125,0.3)" : "")};
+  ${({ isOriginal, isSelected }) => (isOriginal ? OriginalStyle : null)};
   background-color: ${({ isSelected, isOriginal }) =>
-    isSelected ? "red" : ""};
+    isSelected ? "rgba(0,0,0,0.2)" : ""};
+
   width: 50px;
   height: 50px;
   border-left: solid 1px black;
   border-bottom: ${({ isLastRow }) => (isLastRow ? "" : " solid 1px black")};
+
   &:hover {
     cursor: pointer;
   }
+  &:after {
+    content: "";
+    position:absolute;
+    width:100%;
+    height:100%
+    left:0;
+    top:0;
+    background-color: ${({ isSelected, isOriginal }) =>
+      isSelected ? "rgba(0,0,0,0.4)" : ""};
+  }
 `;
-
-// const getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
 class SudokuSquare extends React.Component {
   state = { value: this.props.value, originalValue: this.props.initialValue };
@@ -41,7 +59,10 @@ class SudokuSquare extends React.Component {
   }
 
   isOriginal = () => this.state.originalValue !== "";
-
+  isHighlighted = () => {
+    const { selectedIndex, rowIndex, selectedRowIndex, index } = this.props;
+    return selectedIndex === index || rowIndex === selectedRowIndex;
+  };
   isGreySquare = () => {
     const { index, rowIndex } = this.props;
     const greyIndexes = [1, 2, 3, 7, 8, 9];
@@ -58,18 +79,24 @@ class SudokuSquare extends React.Component {
       rowIndex,
       boardIndex,
       index,
-      selectedIndex,
-      setSelectedIndex,
+      selectedBoardIndex,
+      setSelectedBoardIndexes,
       initialValue
     } = this.props;
-    boardIndex === 3 && console.log(value);
+
     return (
       <Main
-        isSelected={selectedIndex === boardIndex ? 1 : 0}
+        isSelected={this.isHighlighted() ? 1 : 0}
         isOriginal={this.isOriginal() ? 1 : 0}
         isLastRow={rowIndex === 9 ? 1 : 0}
         isGrey={this.isGreySquare() ? 1 : 0}
-        onClick={() => !this.isOriginal() && setSelectedIndex(boardIndex)}
+        onClick={() =>
+          setSelectedBoardIndexes({
+            selectedBoardIndex: boardIndex,
+            selectedIndex: index,
+            selectedRowIndex: rowIndex
+          })
+        }
       >
         {initialValue || value}
       </Main>

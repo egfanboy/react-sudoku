@@ -4,9 +4,15 @@ import Square from "./sudoku-square";
 import ButtonBar from "./button-bar";
 
 class Sudoku extends React.Component {
-  state = { selectedIndex: null, values: {}, done: false };
+  state = {
+    selectedBoardIndex: null,
+    values: {},
+    done: false,
+    selectedRowIndex: null,
+    selectedIndex: null
+  };
 
-  setSelectedIndex = selectedIndex => this.setState({ selectedIndex });
+  setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
   setValue = (boardIndex, value) => {
     this.setState(
       state =>
@@ -27,13 +33,16 @@ class Sudoku extends React.Component {
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
   handleButtonPress = value => {
-    const { selectedIndex, values } = this.state;
-    const selectedIndexValue = values[selectedIndex];
+    const { selectedBoardIndex, values } = this.state;
+    const selectedBoardIndexValue = values[selectedBoardIndex];
 
-    if (selectedIndexValue.isOriginal) return;
+    if (selectedBoardIndexValue.isOriginal) return;
 
-    if (selectedIndex === null) return;
-    this.setValue(selectedIndex, Object.assign(selectedIndexValue, { value }));
+    if (selectedBoardIndex === null) return;
+    this.setValue(
+      selectedBoardIndex,
+      Object.assign(selectedBoardIndexValue, { value })
+    );
   };
 
   validate = () => {
@@ -55,6 +64,8 @@ class Sudoku extends React.Component {
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
+    const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
+
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
     const value = this.getValue(boardIndex);
 
@@ -67,8 +78,10 @@ class Sudoku extends React.Component {
         rowIndex={rowIndex + 1}
         boardIndex={boardIndex}
         index={index + 1}
-        setSelectedIndex={this.setSelectedIndex}
-        selectedIndex={this.state.selectedIndex}
+        selectedIndex={selectedIndex}
+        selectedRowIndex={selectedRowIndex}
+        selectedBoardIndex={selectedBoardIndex}
+        setSelectedBoardIndexes={this.setSelectedBoardIndexes}
         setValue={this.setValue}
       />
     );
