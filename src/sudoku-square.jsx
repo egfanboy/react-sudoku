@@ -6,22 +6,34 @@ const Main = styled.div`
   position: relative;
   width: 50px;
   height: 50px;
-  border-right:${({ isThickRight, isLastColumn }) =>
-    isThickRight ? "solid 5px black" : isLastColumn ? "" : "solid 1px black"} ;
-  border-bottom:${({ isThickBottom, isLastRow }) =>
-    isThickBottom ? "solid 5px black" : isLastRow ? "" : "solid 1px black"} ;
+  border-right: ${({ isThickRight, isLastColumn }) =>
+    isThickRight
+      ? "solid 5px #ff6200"
+      : isLastColumn
+        ? ""
+        : "solid 1px #ff6200"};
+  border-bottom: ${({ isThickBottom, isLastRow }) =>
+    isThickBottom ? "solid 5px #ff6200" : isLastRow ? "" : "solid 1px #ff6200"};
   &:hover {
     cursor: pointer;
   }
-  &:after {
+  &:before {
     content: "";
-    position:absolute;
-    width:100%;
-    height:100%
-    left:0;
-    top:0;
-    background-color: ${({ isSelected, isOriginal }) =>
-      isSelected ? "rgba(255,0,0,0.3)" : ""};
+    display: ${({
+      isThickBottom,
+      isThickRight,
+      isLastRow,
+      isHighlighted,
+      isNextToHighlighted
+    }) => (isThickBottom || isThickRight || isLastRow ? "none" : "")};
+    position: absolute;
+    z-index: 4;
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+    right: -10px;
+    background-color: black;
+    border-radius: 50%;
   }
 `;
 
@@ -59,6 +71,10 @@ class SudokuSquare extends React.Component {
 
     return greyIndexes.includes(index) && greyIndexes.includes(rowIndex);
   };
+
+  isNextToHighlighted = () => {
+    return true;
+  };
   render() {
     const {
       value,
@@ -77,6 +93,7 @@ class SudokuSquare extends React.Component {
         isLastRow={rowIndex === 9 ? 1 : 0}
         isThickRight={index === 3 || index === 6 ? 1 : 0}
         isThickBottom={rowIndex === 3 || rowIndex === 6 ? 1 : 0}
+        isNextToHighlighted={this.isNextToHighlighted() ? 1 : 0}
         onClick={() =>
           setSelectedBoardIndexes({
             selectedBoardIndex: boardIndex,

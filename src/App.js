@@ -34,6 +34,7 @@ class App extends Component {
         <div
           style={{
             display: "flex",
+            backgroundColor: "black",
             flexDirection: "column",
             alignItems: "center"
           }}

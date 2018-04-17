@@ -7,26 +7,27 @@ const Main = styled.div`
 `;
 const Value = styled.div`
   width: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "50px" : isOriginal ? "40px" : "50px"};
+    isHighlighted ? "40px" : isOriginal ? "40px" : "40px"};
   height: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "50px" : isOriginal ? "40px" : "50px"};
+    isHighlighted ? "40px" : isOriginal ? "40px" : "40px"};
   transition: all 0.5s;
   display: flex;
   margin-top: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "0px" : isOriginal ? "5px" : "0px"};
+    isHighlighted ? "5px" : isOriginal ? "5px" : "5px"};
   justify-content: center;
   font-size: 20px;
   align-items: center;
   font-weight: bold;
-  border: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "none" : isOriginal ? "solid 1px rgba(0,0,0,0.5)" : "none"};
-  box-shadow: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "" : isOriginal ? "0px 0px 5px 2px red" : ""};
 
   background-color: ${({ isOriginal, isSelectedBoardIndex }) =>
-    isOriginal ? "red" : isSelectedBoardIndex ? "rgba(255,0,0,0.75)" : ""};
+    isOriginal
+      ? "rgb(25,25,25)"
+      : isSelectedBoardIndex
+        ? "rgba(25,25,25,0.75)"
+        : ""};
+
   border-radius: ${({ isOriginal, isHighlighted }) =>
-    isOriginal && !isHighlighted ? "50%" : ""};
+    isOriginal && !isHighlighted ? "50%" : "50%"};
 `;
 const ValueWrapper = ({ value, ...styleProps }) => (
   <Main>
