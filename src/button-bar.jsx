@@ -5,7 +5,7 @@ import Button from "./button";
 const Main = styled.div`
   display: flex;
 `;
-const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, null];
 class ButtonBar extends React.Component {
   buildButton = value => {
     const { onClick } = this.props;

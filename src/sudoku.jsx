@@ -20,14 +20,25 @@ class Sudoku extends React.Component {
           [`${boardIndex}`]: value
         }))
     );
-
+    this.isDone();
     this.validate();
   };
 
   isDone = () => {
     const { values } = this.state;
+    let done = true;
+
+    if (Object.keys(values).length === 0) return;
+    Object.keys(values).forEach(v => {
+      console.log(values[v]);
+      if (values[v]["value"] === "" || values[v]["value"] === null)
+        done = false;
+    });
+
+    console.log(done);
+
     this.setState({
-      done: Object.values(values).every(({ value }) => value !== "")
+      done
     });
   };
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
@@ -35,7 +46,7 @@ class Sudoku extends React.Component {
   handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
-
+    if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
     if (selectedBoardIndex === null) return;
@@ -48,12 +59,13 @@ class Sudoku extends React.Component {
   validate = () => {
     const { values } = this.state;
     const { done } = this.state;
-    console.log("validating");
 
     let errors = false;
     Object.values(values).forEach(({ value, answer }) => {
       if (value !== answer) errors = true;
     });
+
+    if (done && errors === false) console.log("grats");
     !errors && done && alert("Errors");
   };
 
@@ -101,13 +113,12 @@ class Sudoku extends React.Component {
   };
   render() {
     const { board } = this.props;
-    // console.log(this.state.values);
+
     console.log(this.state.done);
     return (
       <Fragment>
         {board.map(this.buildBoard)}
         <ButtonBar onClick={this.handleButtonPress} />
-        <button onClick={this.validate}>{"Validate"}</button>
       </Fragment>
     );
   }

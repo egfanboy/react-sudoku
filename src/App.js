@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { makepuzzle, solvepuzzle, ratepuzzle } from "sudoku";
+import { makepuzzle, solvepuzzle } from "sudoku";
 import { List } from "immutable";
 import Board from "./sudoku";
 
 const x = makepuzzle();
 const y = solvepuzzle(x);
 let arr = [];
-let l = 0;
+
 const board = y.reduce((acc, j, i) => {
   const formatValue = v => (v === null ? null : v + 1);
   if (arr.length === 8) {
@@ -36,7 +36,8 @@ class App extends Component {
             display: "flex",
             backgroundColor: "black",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
+            zoom: "1.25"
           }}
         >
           <Board board={board} />

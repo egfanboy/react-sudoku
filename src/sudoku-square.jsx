@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import ValueWrapper from "./value-wrapper";
 
 const Main = styled.div`
@@ -9,9 +9,7 @@ const Main = styled.div`
   border-right: ${({ isThickRight, isLastColumn }) =>
     isThickRight
       ? "solid 5px #ff6200"
-      : isLastColumn
-        ? ""
-        : "solid 1px #ff6200"};
+      : isLastColumn ? "" : "solid 1px #ff6200"};
   border-bottom: ${({ isThickBottom, isLastRow }) =>
     isThickBottom ? "solid 5px #ff6200" : isLastRow ? "" : "solid 1px #ff6200"};
   &:hover {
@@ -19,13 +17,8 @@ const Main = styled.div`
   }
   &:before {
     content: "";
-    display: ${({
-      isThickBottom,
-      isThickRight,
-      isLastRow,
-      isHighlighted,
-      isNextToHighlighted
-    }) => (isThickBottom || isThickRight || isLastRow ? "none" : "")};
+    display: ${({ isThickBottom, isThickRight, isLastRow, isLastColumn }) =>
+      isThickBottom || isThickRight || isLastRow || isLastColumn ? "none" : ""};
     position: absolute;
     z-index: 4;
     width: 20px;
@@ -41,14 +34,7 @@ class SudokuSquare extends React.Component {
   state = { value: this.props.value, originalValue: this.props.initialValue };
 
   componentDidMount() {
-    const {
-      setValue,
-      rowIndex,
-      index,
-      answer,
-      boardIndex,
-      initialValue
-    } = this.props;
+    const { setValue, answer, boardIndex, initialValue } = this.props;
     setValue(boardIndex, {
       value: initialValue,
       answer,
