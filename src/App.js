@@ -5,38 +5,25 @@ import { makepuzzle, solvepuzzle } from "sudoku";
 import { List } from "immutable";
 import Board from "./sudoku";
 import { easy, medium, hard } from "t-sudoku-generator";
-
-const x = makepuzzle();
-const y = solvepuzzle(x);
-let arr = [];
-
-// const board = y.reduce((acc, j, i) => {
-//   const formatValue = v => (v === null ? null : v + 1);
-//   if (arr.length === 8) {
-//     const y = [...arr, { answer: formatValue(j), value: formatValue(x[i]) }];
-//     arr = [];
-//     return acc.push(y);
-//   } else {
-//     arr = [...arr, { answer: formatValue(j), value: formatValue(x[i]) }];
-//     return acc;
-//   }
-// }, new List());
-
-// console.log(board.toJS());
-
+import styled from "styled-components";
 const board = easy();
 
+const Main = styled.div`
+  display: flex;
+  background-color: white;
+`;
 class App extends Component {
   render() {
     return (
       <div
         style={{
           display: "flex",
-          backgroundColor: "black",
+          backgroundColor: "white",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           height: "100vh",
+          width: "100vw",
           zoom: "1.25"
         }}
       >

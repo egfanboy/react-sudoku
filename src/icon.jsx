@@ -3,16 +3,20 @@ import styled from "styled-components";
 
 const StyledIcon = styled.i`
   font-size: ${({ size }) => `${size}px`};
-  color: ${({ color }) => color};
+  transition: all 1s;
+  color: ${({ theme }) => theme.secondary};
   padding: 0px;
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
 `;
 
-const Icon = ({ className, size = "12", name, color = "black" }) => {
+const Icon = ({ className, size = "12", name, theme }) => {
   return (
     <StyledIcon
       className={`material-icons ${className}`}
       size={size}
-      color={color}
+      theme={theme}
     >
       {name}
     </StyledIcon>

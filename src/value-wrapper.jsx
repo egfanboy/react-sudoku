@@ -5,36 +5,21 @@ const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 const Value = styled.div`
-  width: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "40px" : isOriginal ? "40px" : "40px"};
-  height: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "40px" : isOriginal ? "40px" : "40px"};
   transition: all 0.5s;
+  width: 100%;
+  height: 100%;
   display: flex;
-  color: ${({ isOriginal, isSelectedBoardIndex }) =>
-    isOriginal && isSelectedBoardIndex
-      ? "white"
-      : isSelectedBoardIndex ? "#ff6200" : isOriginal ? "#ff6200" : "white"};
-  margin-top: ${({ isOriginal, isHighlighted }) =>
-    isHighlighted ? "5px" : isOriginal ? "5px" : "5px"};
+  color: ${({ isOriginal, isSelectedBoardIndex, theme }) =>
+    isOriginal ? theme.primary : theme.secondary};
   justify-content: center;
-
   font-family: "Source Code Pro", monospace;
   font-weight: bold;
   font-size: 25px;
   align-items: center;
-
-  background-color: ${({ isOriginal, isSelectedBoardIndex }) =>
-    isSelectedBoardIndex && isOriginal
-      ? "rgb(22,22,22)"
-      : isSelectedBoardIndex
-        ? "rgba(25,25,25,0.9)"
-        : isOriginal ? "rgb(25,25,25)" : ""};
-
-  border-radius: ${({ isOriginal, isHighlighted }) =>
-    isOriginal && !isHighlighted ? "50%" : "50%"};
 `;
 const ValueWrapper = ({ value, ...styleProps }) => (
   <Main>

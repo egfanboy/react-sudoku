@@ -8,8 +8,8 @@ const Main = styled.div`
 const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, null];
 class ButtonBar extends React.Component {
   buildButton = value => {
-    const { onClick } = this.props;
-    return <Button key={value} onClick={onClick} value={value} />;
+    const { onClick, theme } = this.props;
+    return <Button key={value} onClick={onClick} value={value} theme={theme} />;
   };
   render() {
     return <Main>{buttons.map(this.buildButton)}</Main>;

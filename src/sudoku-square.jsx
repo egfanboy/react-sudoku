@@ -6,29 +6,32 @@ const Main = styled.div`
   position: relative;
   width: 50px;
   height: 50px;
-  border-right: ${({ isThickRight, isLastColumn }) =>
+  border-right: ${({ isThickRight, isLastColumn, theme }) =>
     isThickRight
-      ? "solid 5px #ff6200"
+      ? `solid 2px ${theme.board}`
       : isLastColumn
         ? ""
-        : "solid 1px #ff6200"};
-  border-bottom: ${({ isThickBottom, isLastRow }) =>
-    isThickBottom ? "solid 5px #ff6200" : isLastRow ? "" : "solid 1px #ff6200"};
+        : `solid 1px ${theme.board}`};
+  border-bottom: ${({ isThickBottom, isLastRow, theme }) =>
+    isThickBottom
+      ? `solid 2px ${theme.board}`
+      : isLastRow
+        ? ""
+        : `solid 1px ${theme.board}`};
   &:hover {
     cursor: pointer;
   }
-  &:before {
-    content: "";
-    display: ${({ isThickBottom, isThickRight, isLastRow, isLastColumn }) =>
-      isThickBottom || isThickRight || isLastRow || isLastColumn ? "none" : ""};
+  &:after {
+   content: "";
     position: absolute;
-    z-index: 2;
-    width: 20px;
-    height: 20px;
-    bottom: -10px;
-    right: -10px;
-    background-color: black;
-    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+    left: 0;
+    top: 0;
+    
+    background-color: ${({ isSelectedBoardIndex, isSelected, theme }) =>
+      isSelectedBoardIndex ? "" : isSelected ? `${theme.overlay}` : ""};
+  }
   }
 `;
 
@@ -49,20 +52,7 @@ class SudokuSquare extends React.Component {
     const { selectedIndex, rowIndex, selectedRowIndex, index } = this.props;
     return selectedIndex === index || rowIndex === selectedRowIndex;
   };
-  isGreySquare = () => {
-    const { index, rowIndex } = this.props;
-    const greyIndexes = [1, 2, 3, 7, 8, 9];
-    const rowIndexExceptions = [4, 5, 6];
 
-    if (rowIndexExceptions.includes(rowIndex) && !greyIndexes.includes(index))
-      return true;
-
-    return greyIndexes.includes(index) && greyIndexes.includes(rowIndex);
-  };
-
-  isNextToHighlighted = () => {
-    return true;
-  };
   render() {
     const {
       value,
@@ -71,7 +61,8 @@ class SudokuSquare extends React.Component {
       index,
       selectedBoardIndex,
       setSelectedBoardIndexes,
-      initialValue
+      initialValue,
+      theme
     } = this.props;
 
     return (
@@ -81,7 +72,8 @@ class SudokuSquare extends React.Component {
         isLastRow={rowIndex === 9 ? 1 : 0}
         isThickRight={index === 3 || index === 6 ? 1 : 0}
         isThickBottom={rowIndex === 3 || rowIndex === 6 ? 1 : 0}
-        isNextToHighlighted={this.isNextToHighlighted() ? 1 : 0}
+        isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}
+        theme={theme}
         onClick={() =>
           setSelectedBoardIndexes({
             selectedBoardIndex: boardIndex,
@@ -91,6 +83,7 @@ class SudokuSquare extends React.Component {
         }
       >
         <ValueWrapper
+          theme={theme}
           isOriginal={this.isOriginal() ? 1 : 0}
           isHighlighted={this.isHighlighted() ? 1 : 0}
           isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}

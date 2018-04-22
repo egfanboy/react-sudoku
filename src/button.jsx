@@ -14,18 +14,18 @@ const StyledButton = styled.div`
   justify-content: center;
   height: 40px;
   width: 40px;
-  color: white;
-  border: 1px solid rgba(25, 25, 25, 1);
-  border-radius: 50%;
+  color: ${({ theme }) => `1px solid ${theme.secondary}`};
+  border: ${({ theme }) => `1px solid ${theme.primary}`};
+  border-radius: 10px;
   margin: 5px;
   &:hover {
     cursor: pointer;
-    border: 1px solid #ff6200;
+    color: ${({ theme }) => `${theme.primary}`};
   }
 `;
 
-export default ({ onClick, value }) => (
-  <StyledButton onClick={() => onClick(value)}>
-    {value || <Icon name={"clear"} size="20" color="white" />}
+export default ({ onClick, value, theme }) => (
+  <StyledButton theme={theme} onClick={() => onClick(value)}>
+    {value || <Icon name={"clear"} size="20" theme={theme} />}
   </StyledButton>
 );
