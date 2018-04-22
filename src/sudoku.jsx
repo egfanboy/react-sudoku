@@ -2,14 +2,17 @@ import React, { Fragment } from "react";
 
 import Square from "./sudoku-square";
 import ButtonBar from "./button-bar";
+import Dialog from "./dialog";
 
 class Sudoku extends React.Component {
   state = {
     selectedBoardIndex: null,
     values: {},
     done: false,
+    valid: false,
     selectedRowIndex: null,
-    selectedIndex: null
+    selectedIndex: null,
+    openDialog: false
   };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
@@ -21,9 +24,11 @@ class Sudoku extends React.Component {
         }))
     );
     this.isDone();
-    this.validate();
   };
 
+  setDialogState = () => {
+    this.setState({ openDialog: !this.state.openDialog });
+  };
   isDone = () => {
     const { values } = this.state;
     let done = true;
@@ -35,11 +40,9 @@ class Sudoku extends React.Component {
         done = false;
     });
 
-    console.log(done);
-
-    this.setState({
-      done
-    });
+    if (done) {
+      this.setState({ done }, () => this.validate());
+    }
   };
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
@@ -65,8 +68,9 @@ class Sudoku extends React.Component {
       if (value !== answer) errors = true;
     });
 
-    if (done && errors === false) console.log("grats");
-    !errors && done && alert("Errors");
+    done && console.log(errors);
+
+    if (done && !errors) this.setDialogState();
   };
 
   getValue = boardIndex => {
@@ -113,12 +117,18 @@ class Sudoku extends React.Component {
   };
   render() {
     const { board } = this.props;
+    const { openDialog } = this.state;
 
-    console.log(this.state.done);
     return (
       <Fragment>
         {board.map(this.buildBoard)}
         <ButtonBar onClick={this.handleButtonPress} />
+        <Dialog
+          isOpen={openDialog}
+          stateManager={this.setDialogState}
+          header="Congratz"
+          message="You did it 👏"
+        />
       </Fragment>
     );
   }

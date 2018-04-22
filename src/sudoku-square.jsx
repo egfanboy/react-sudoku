@@ -9,7 +9,9 @@ const Main = styled.div`
   border-right: ${({ isThickRight, isLastColumn }) =>
     isThickRight
       ? "solid 5px #ff6200"
-      : isLastColumn ? "" : "solid 1px #ff6200"};
+      : isLastColumn
+        ? ""
+        : "solid 1px #ff6200"};
   border-bottom: ${({ isThickBottom, isLastRow }) =>
     isThickBottom ? "solid 5px #ff6200" : isLastRow ? "" : "solid 1px #ff6200"};
   &:hover {
@@ -20,7 +22,7 @@ const Main = styled.div`
     display: ${({ isThickBottom, isThickRight, isLastRow, isLastColumn }) =>
       isThickBottom || isThickRight || isLastRow || isLastColumn ? "none" : ""};
     position: absolute;
-    z-index: 4;
+    z-index: 2;
     width: 20px;
     height: 20px;
     bottom: -10px;
