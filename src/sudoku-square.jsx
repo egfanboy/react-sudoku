@@ -36,7 +36,10 @@ const Main = styled.div`
 `;
 
 class SudokuSquare extends React.Component {
-  state = { value: this.props.value, originalValue: this.props.initialValue };
+  state = {
+    value: this.props.value,
+    originalValue: this.props.initialValue
+  };
 
   componentDidMount() {
     const { setValue, answer, boardIndex, initialValue } = this.props;

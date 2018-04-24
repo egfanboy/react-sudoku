@@ -22,8 +22,20 @@ const orangeTheme = {
   overlay: "rgba(255,90,0,0.2)"
 };
 
+const basicState = {
+  selectedBoardIndex: null,
+  values: {},
+  done: false,
+  valid: false,
+  selectedRowIndex: null,
+  selectedIndex: null,
+  openDialog: false,
+  theme: orangeTheme
+};
+
 class Sudoku extends React.Component {
   state = {
+    board: null,
     selectedBoardIndex: null,
     values: {},
     done: false,
@@ -103,7 +115,8 @@ class Sudoku extends React.Component {
       selectedBoardIndex,
       selectedIndex,
       selectedRowIndex,
-      theme
+      theme,
+      board
     } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -114,11 +127,12 @@ class Sudoku extends React.Component {
         theme={theme}
         key={(rowIndex + 1) * index + 10}
         value={value === null ? "" : value}
-        initialValue={initialValue === null ? "" : initialValue}
+        initialValue={initialValue}
         answer={answer}
         rowIndex={rowIndex + 1}
         boardIndex={boardIndex}
         index={index + 1}
+        board={board}
         selectedIndex={selectedIndex}
         selectedRowIndex={selectedRowIndex}
         selectedBoardIndex={selectedBoardIndex}
