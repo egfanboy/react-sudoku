@@ -5,23 +5,21 @@ import { makepuzzle, solvepuzzle } from "sudoku";
 import { List } from "immutable";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import Difficulty from "./difficulty";
-import Sudoku from "t-sudoku-generator";
+import { easy, medium, hard } from "t-sudoku-generator";
 import styled from "styled-components";
 import Board from "./sudoku";
 
 // const board = easy();
 const Easy = () => {
-  return <Board board={Sudoku.easy()} />;
+  return <Board board={easy()} />;
 };
 const Medium = () => {
-  return <Board board={Sudoku.medium()} />;
+  return <Board board={medium()} />;
 };
 const Hard = () => {
-  return <Board board={Sudoku.hard()} />;
+  return <Board board={hard()} />;
 };
 class App extends Component {
-  state = { difficulty: "easy", board: Sudoku.easy() };
-
   render() {
     return (
       <div
