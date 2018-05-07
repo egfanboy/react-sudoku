@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import ValueWrapper from "./value-wrapper";
+import React from 'react';
+import styled from 'styled-components';
+import ValueWrapper from './value-wrapper';
+import NotesWrapper from './notes-wrapper';
 
 const Main = styled.div`
   position: relative;
@@ -10,28 +11,27 @@ const Main = styled.div`
     isThickRight
       ? `solid 2px ${theme.board}`
       : isLastColumn
-        ? ""
+        ? ''
         : `solid 1px ${theme.board}`};
   border-bottom: ${({ isThickBottom, isLastRow, theme }) =>
     isThickBottom
       ? `solid 2px ${theme.board}`
       : isLastRow
-        ? ""
+        ? ''
         : `solid 1px ${theme.board}`};
   &:hover {
     cursor: pointer;
   }
   &:after {
-   content: "";
+    content: '';
     position: absolute;
     width: 51px;
     height: 51px;
     left: 0;
     top: 0;
-    
+
     background-color: ${({ isSelectedBoardIndex, isSelected, theme }) =>
-      isSelectedBoardIndex ? "" : isSelected ? `${theme.overlay}` : ""};
-  }
+      isSelectedBoardIndex ? '' : isSelected ? `${theme.overlay}` : ''};
   }
 `;
 
@@ -50,7 +50,7 @@ class SudokuSquare extends React.Component {
     });
   }
 
-  isOriginal = () => this.state.originalValue !== "";
+  isOriginal = () => this.state.originalValue !== null;
   isHighlighted = () => {
     const { selectedIndex, rowIndex, selectedRowIndex, index } = this.props;
     return selectedIndex === index || rowIndex === selectedRowIndex;
@@ -67,7 +67,7 @@ class SudokuSquare extends React.Component {
       initialValue,
       theme
     } = this.props;
-
+    console.log(this.state.originalValue);
     return (
       <Main
         isSelected={this.isHighlighted() ? 1 : 0}
