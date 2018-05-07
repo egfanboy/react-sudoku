@@ -51,6 +51,7 @@ class SudokuSquare extends React.Component {
   }
 
   isOriginal = () => this.state.originalValue !== null;
+
   isHighlighted = () => {
     const { selectedIndex, rowIndex, selectedRowIndex, index } = this.props;
     return selectedIndex === index || rowIndex === selectedRowIndex;
@@ -67,7 +68,7 @@ class SudokuSquare extends React.Component {
       initialValue,
       theme
     } = this.props;
-    console.log(this.state.originalValue);
+
     return (
       <Main
         isSelected={this.isHighlighted() ? 1 : 0}
