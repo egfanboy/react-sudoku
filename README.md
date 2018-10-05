@@ -11,16 +11,16 @@ To install yarn, follow the instructions from the [yarn website.](https://yarnpk
 
 ## Getting Started
 
-Assuming you have yarn installed, start by cloning the repo:
+Assuming you have yarn/npm installed, start by cloning the repo:
 ```
 git clone https://github.com/EricTurf/react-sudoku.git
 ```
-Once you have the repo files in a local directory, run yarn to install all the dependencies:
+Once you have the repo files in a local directory, run yarn/npm to install all the dependencies:
 ```yarn install``` or ```npm install```.
 
-Finally, after the installation is complete -- run the program by using ```yarn run start:dev``` or ```npm run start:dev``` depending on the package manager you installed in the previous step.
+Finally, after the installation is complete -- run the program by using ```yarn run start:dev``` or ```npm run start:dev```.
 
-At this point you should have a partially filled sudoku board pop up in your browser of choice. Happy puzzling!
+A partially filled sudoku board should pop up in the browser of your choice. Happy puzzling!
 
 ## User Interface
 
