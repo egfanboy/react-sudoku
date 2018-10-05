@@ -55,7 +55,13 @@ class Dialog extends Component {
   state = { isOpen: this.props.isOpen };
 
   render() {
-    const { header, message, isOpen, stateManager } = this.props;
+    const {
+      header,
+      message,
+      completionTimeMessage,
+      isOpen,
+      stateManager
+    } = this.props;
 
     return (
       <Main isOpen={isOpen}>
@@ -63,9 +69,10 @@ class Dialog extends Component {
           <StyledDialog>
             <Title>{header}</Title>
             <Message>{message}</Message>
+            <Message>{completionTimeMessage}</Message>
 
             <StyledButton onClick={stateManager}>
-              {"🔥 Wow I am awesome 🔥"}
+              {'🔥 Wow I am awesome 🔥'}
             </StyledButton>
           </StyledDialog>
         )}
