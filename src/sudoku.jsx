@@ -41,6 +41,22 @@ class Sudoku extends React.Component {
     theme: orangeTheme
   };
 
+  componentDidMount() {
+    document.addEventListener('keypress', this.onKeypress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keypress', this.onKeypress);
+  }
+
+  onKeypress = e => {
+    const charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
+    const value = charCode - 48;
+    if (value >= 0 && value <= 9) {
+      this.handleButtonPress(value || null);
+    }
+  }
+
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
   setValue = (boardIndex, value) => {
     this.setState(
