@@ -12,12 +12,10 @@ const FirstRow = styled.div`
 const SecondRow = styled.div`
   display: flex;
 `;
-const ThirdRow = styled.div``;
 
 const firstButtons = [1, 2, 3, 4, 5];
 const secondButtons = [6, 7, 8, 9, null];
 
-// const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, null];
 class ButtonBar extends React.Component {
   buildButton = value => {
     const { onClick, theme } = this.props;

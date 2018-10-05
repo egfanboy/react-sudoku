@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const StyledDialog = styled.div`
   height: 300px;
@@ -21,9 +20,6 @@ const Title = styled.h2`
 `;
 const Message = styled.h4`
   user-select: none;
-`;
-const ButtonContainer = styled.div`
-  width: 300px;
 `;
 const StyledButton = styled.button`
   padding: 10px 30px;
@@ -59,7 +55,7 @@ class Dialog extends Component {
   state = { isOpen: this.props.isOpen };
 
   render() {
-    const { header, message, buttons, isOpen, stateManager } = this.props;
+    const { header, message, isOpen, stateManager } = this.props;
 
     return (
       <Main isOpen={isOpen}>

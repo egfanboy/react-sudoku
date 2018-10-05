@@ -61,7 +61,6 @@ class Sudoku extends React.Component {
 
     if (Object.keys(values).length === 0) return;
     Object.keys(values).forEach(v => {
-      console.log(values[v]);
       if (values[v]['value'] === '' || values[v]['value'] === null)
         done = false;
     });
@@ -93,8 +92,6 @@ class Sudoku extends React.Component {
     Object.values(values).forEach(({ value, answer }) => {
       if (value !== answer) errors = true;
     });
-
-    done && console.log(errors);
 
     if (done && !errors) this.setDialogState();
   };

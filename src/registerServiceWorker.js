@@ -70,15 +70,12 @@ function registerValidSW(swUrl) {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
             }
           }
         };
       };
     })
-    .catch(error => {
-      console.error('Error during service worker registration:', error);
-    });
+    .catch(() => {});
 }
 
 function checkValidServiceWorker(swUrl) {
@@ -101,11 +98,7 @@ function checkValidServiceWorker(swUrl) {
         registerValidSW(swUrl);
       }
     })
-    .catch(() => {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
-      );
-    });
+    .catch(() => {});
 }
 
 export function unregister() {

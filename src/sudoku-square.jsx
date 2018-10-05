@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import ValueWrapper from './value-wrapper';
-import NotesWrapper from './notes-wrapper';
 
 const Main = styled.div`
   position: relative;
