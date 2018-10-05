@@ -20,7 +20,7 @@ Once you have the repo files in a local directory, run yarn/npm to install all t
 
 Finally, after the installation is complete -- run the program by using ```yarn run start:dev``` or ```npm run start:dev```.
 
-A partially filled sudoku board should pop up in the browser of your choice. Happy puzzling!
+A partially filled sudoku board should pop up in the browser of your choice. Adjust your difficulty by using the dropdown at the top of the UI to select between easy, medium, and hard. Happy puzzling!
 
 ## User Interface
 
