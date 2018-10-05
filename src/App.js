@@ -1,15 +1,11 @@
-import React, { Component, Fragment } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { makepuzzle, solvepuzzle } from "sudoku";
-import { List } from "immutable";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
-import Difficulty from "./difficulty";
-import { easy, medium, hard } from "t-sudoku-generator";
-import styled from "styled-components";
-import Board from "./sudoku";
+import React, { Component, Fragment } from 'react';
 
-// const board = easy();
+import { BrowserRouter, Route } from 'react-router-dom';
+import Difficulty from './difficulty';
+import { easy, medium, hard } from 't-sudoku-generator';
+
+import Board from './sudoku';
+
 const Easy = () => {
   return <Board board={easy()} />;
 };
@@ -24,14 +20,13 @@ class App extends Component {
     return (
       <div
         style={{
-          display: "flex",
-          backgroundColor: "white",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          width: "100vw",
-          zoom: "1.25"
+          display: 'flex',
+          backgroundColor: 'white',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          width: '100%'
         }}
       >
         <BrowserRouter>
