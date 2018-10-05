@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Main = styled.div`
   display: flex;
@@ -13,8 +13,7 @@ const Value = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  color: ${({ isOriginal, theme }) =>
-    isOriginal ? theme.primary : theme.secondary};
+  color: ${({ isOriginal, theme }) => (isOriginal ? theme.primary : theme.secondary)};
   justify-content: center;
   font-family: "Source Code Pro", monospace;
   font-weight: bold;
