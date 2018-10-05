@@ -14,7 +14,7 @@ class Difficulty extends React.Component {
     this.onDifficultyHandler('easy');
   }
 
-  onDifficultyHandler = (difficulty) => {
+  onDifficultyHandler = difficulty => {
     const { location, history } = this.props;
     if (location.pathname.split('/').pop() === difficulty) return;
     this.setState({ difficulty }, () => history.push(`/${difficulty}`));

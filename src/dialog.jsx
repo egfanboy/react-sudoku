@@ -51,7 +51,7 @@ const Main = styled.div`
 `;
 const propTypes = {};
 
-const Dialog = (props) => {
+const Dialog = props => {
   const {
     header, message, isOpen, stateManager,
   } = props;

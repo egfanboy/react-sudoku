@@ -22,6 +22,7 @@
       "extensions": [".js", ".jsx"]
     }],
     "react/prop-types": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "arrow-parens": ["error", "as-needed"]
   }
 }

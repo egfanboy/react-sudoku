@@ -62,7 +62,7 @@ class Sudoku extends React.Component {
     let done = true;
 
     if (Object.keys(values).length === 0) return;
-    Object.keys(values).forEach((v) => {
+    Object.keys(values).forEach(v => {
       if (values[v].value === '' || values[v].value === null) done = false;
     });
 
@@ -73,7 +73,7 @@ class Sudoku extends React.Component {
 
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
-  handleButtonPress = (value) => {
+  handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
@@ -98,7 +98,7 @@ class Sudoku extends React.Component {
     if (done && !errors) this.setDialogState();
   };
 
-  getValue = (boardIndex) => {
+  getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
     return valueForIndex && valueForIndex.value;
