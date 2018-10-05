@@ -13,7 +13,7 @@ const Value = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  color: ${({ isOriginal, isSelectedBoardIndex, theme }) =>
+  color: ${({ isOriginal, theme }) =>
     isOriginal ? theme.primary : theme.secondary};
   justify-content: center;
   font-family: "Source Code Pro", monospace;
