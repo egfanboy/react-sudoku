@@ -1,6 +1,11 @@
 import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
 import { withRouter } from 'react-router-dom';
+
+const StyledSelect = styled.select`
+  margin-bottom: 10px;
+`;
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
@@ -19,15 +24,14 @@ class Difficulty extends React.Component {
   render() {
     return (
       <Fragment>
-        <select
+        <StyledSelect
           onChange={e => this.onDifficultyHandler(e.target.value)}
-          style={{ marginBottom: '10px' }}
           value={this.state.difficulty}
         >
           <option value="easy">{'easy'}</option>
           <option value="medium">{'medium'}</option>
           <option value="hard">{'hard'}</option>
-        </select>
+        </StyledSelect>
       </Fragment>
     );
   }

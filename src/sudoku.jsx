@@ -16,6 +16,11 @@ const Main = styled.div`
   zoom: 1.25;
 `;
 
+const Board = styled.div`
+  display: flex;
+  width: 500px;
+`;
+
 const orangeTheme = {
   primary: 'rgba(255,90,0,1)',
   secondary: 'rgba(0,0,0,1)',
@@ -132,17 +137,7 @@ class Sudoku extends React.Component {
     );
   };
   buildBoard = (x, i) => {
-    return (
-      <div
-        key={i}
-        style={{
-          display: 'flex',
-          width: '500px'
-        }}
-      >
-        {x.map(this.buildRow(i))}
-      </div>
-    );
+    return <Board key={i}>{x.map(this.buildRow(i))}</Board>;
   };
   render() {
     const { board } = this.props;
