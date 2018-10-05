@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledDialog = styled.div`
   height: 300px;
@@ -37,11 +37,11 @@ const StyledButton = styled.button`
   }
 `;
 const Main = styled.div`
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: center;
   position: absolute;
   align-items: center;
-  pointer-events: ${({ isOpen }) => (isOpen ? "" : "none")};
+  pointer-events: ${({ isOpen }) => (isOpen ? '' : 'none')};
   top: 0;
   left: 0;
   width: 100%;
@@ -51,10 +51,9 @@ const Main = styled.div`
 `;
 const propTypes = {};
 
-class Dialog extends Component {
-  state = { isOpen: this.props.isOpen };
+class Dialog extends React.Component{
 
-  render() {
+render() {
     const {
       header,
       message,
@@ -80,6 +79,15 @@ class Dialog extends Component {
     );
   }
 }
+
+}
+
+
+Dialog = props => {
+  const {
+    header, message, isOpen, stateManager,completionTimeMessage
+  } = props;
+
 
 Dialog.propTypes = propTypes;
 

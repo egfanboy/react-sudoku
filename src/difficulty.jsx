@@ -15,22 +15,23 @@ class Difficulty extends React.Component {
   }
 
   onDifficultyHandler = difficulty => {
-    if (this.props.location.pathname.split('/').pop() === difficulty) return;
-    this.setState({ difficulty }, () =>
-      this.props.history.push(`/${difficulty}`)
-    );
+    const { location, history } = this.props;
+    if (location.pathname.split('/').pop() === difficulty) return;
+    this.setState({ difficulty }, () => history.push(`/${difficulty}`));
   };
 
   render() {
+    const { difficulty } = this.state;
+
     return (
       <Fragment>
         <StyledSelect
           onChange={e => this.onDifficultyHandler(e.target.value)}
-          value={this.state.difficulty}
+          value={difficulty}
         >
-          <option value="easy">{'easy'}</option>
-          <option value="medium">{'medium'}</option>
-          <option value="hard">{'hard'}</option>
+          <option value="easy">easy</option>
+          <option value="medium">medium</option>
+          <option value="hard">hard</option>
         </StyledSelect>
       </Fragment>
     );

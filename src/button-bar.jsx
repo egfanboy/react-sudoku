@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "./button";
+import React from 'react';
+import styled from 'styled-components';
+import Button from './button';
 
 const Main = styled.div`
   display: flex;
@@ -21,6 +21,7 @@ class ButtonBar extends React.Component {
     const { onClick, theme } = this.props;
     return <Button key={value} onClick={onClick} value={value} theme={theme} />;
   };
+
   render() {
     return (
       <Main>

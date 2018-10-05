@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledIcon = styled.i`
   font-size: ${({ size }) => `${size}px`};
@@ -11,16 +11,16 @@ const StyledIcon = styled.i`
   }
 `;
 
-const Icon = ({ className, size = "12", name, theme }) => {
-  return (
-    <StyledIcon
-      className={`material-icons ${className}`}
-      size={size}
-      theme={theme}
-    >
-      {name}
-    </StyledIcon>
-  );
-};
+const Icon = ({
+  className, size = '12', name, theme,
+}) => (
+  <StyledIcon
+    className={`material-icons ${className}`}
+    size={size}
+    theme={theme}
+  >
+    {name}
+  </StyledIcon>
+);
 
 export default Icon;
