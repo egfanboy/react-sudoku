@@ -13,6 +13,7 @@ const Main = styled.div`
   width: 460px;
   overflow: hidden;
   box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
+  zoom: 1.25;
 `;
 
 const orangeTheme = {

@@ -1,24 +1,26 @@
 import React, { Fragment } from 'react';
 
-import { withRouter, BrowserRouter, Route } from 'react-router-dom';
-import Sudoku from 't-sudoku-generator';
+import { withRouter } from 'react-router-dom';
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
 
   componentDidMount() {
-    this.onDifficultyHandler(undefined, 'easy');
+    this.onDifficultyHandler('easy');
   }
-  
-  onDifficultyHandler = (e, difficulty) => {
-    this.setState({ difficulty }, () => this.props.history.push(`/${difficulty}`));
+
+  onDifficultyHandler = difficulty => {
+    if (this.props.location.pathname.split('/').pop() === difficulty) return;
+    this.setState({ difficulty }, () =>
+      this.props.history.push(`/${difficulty}`)
+    );
   };
 
   render() {
     return (
       <Fragment>
         <select
-          onChange={this.onDifficultyHandler}
+          onChange={e => this.onDifficultyHandler(e.target.value)}
           style={{ marginBottom: '10px' }}
           value={this.state.difficulty}
         >
