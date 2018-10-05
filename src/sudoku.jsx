@@ -25,7 +25,7 @@ const orangeTheme = {
   primary: 'rgba(255,90,0,1)',
   secondary: 'rgba(0,0,0,1)',
   board: 'rgba(255,90,0,0.7)',
-  overlay: 'rgba(255,90,0,0.2)'
+  overlay: 'rgba(255,90,0,0.2)',
 };
 
 class Sudoku extends React.Component {
@@ -34,41 +34,43 @@ class Sudoku extends React.Component {
     selectedBoardIndex: null,
     values: {},
     done: false,
-    valid: false,
     selectedRowIndex: null,
     selectedIndex: null,
     openDialog: false,
-    theme: orangeTheme
+    theme: orangeTheme,
   };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
+
   setValue = (boardIndex, value) => {
-    this.setState(
-      state =>
-        (state.values = Object.assign(state.values, {
-          [`${boardIndex}`]: value
-        }))
-    );
+    const { values } = this.state;
+    this.setState({
+      values: Object.assign(values, {
+        [`${boardIndex}`]: value,
+      }),
+    });
     this.isDone();
   };
 
   setDialogState = () => {
-    this.setState({ openDialog: !this.state.openDialog });
+    const { openDialog } = this.state;
+    this.setState({ openDialog: !openDialog });
   };
+
   isDone = () => {
     const { values } = this.state;
     let done = true;
 
     if (Object.keys(values).length === 0) return;
     Object.keys(values).forEach(v => {
-      if (values[v]['value'] === '' || values[v]['value'] === null)
-        done = false;
+      if (values[v].value === '' || values[v].value === null) done = false;
     });
 
     if (done) {
       this.setState({ done }, () => this.validate());
     }
   };
+
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
   handleButtonPress = value => {
@@ -80,7 +82,7 @@ class Sudoku extends React.Component {
 
     this.setValue(
       selectedBoardIndex,
-      Object.assign(selectedBoardIndexValue, { value })
+      Object.assign(selectedBoardIndexValue, { value }),
     );
   };
 
@@ -99,7 +101,7 @@ class Sudoku extends React.Component {
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
-    return valueForIndex && valueForIndex['value'];
+    return valueForIndex && valueForIndex.value;
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
@@ -108,7 +110,7 @@ class Sudoku extends React.Component {
       selectedIndex,
       selectedRowIndex,
       theme,
-      board
+      board,
     } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -133,9 +135,9 @@ class Sudoku extends React.Component {
       />
     );
   };
-  buildBoard = (x, i) => {
-    return <Board key={i}>{x.map(this.buildRow(i))}</Board>;
-  };
+
+  buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
+
   render() {
     const { board } = this.props;
     const { openDialog, theme } = this.state;
