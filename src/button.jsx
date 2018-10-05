@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Icon from "./icon";
+import Icon from './icon';
 
 const StyledButton = styled.div`
   display: flex;
   transition: all 1s;
   align-items: center;
-  font-family: "Source Code Pro", monospace;
+  font-family: 'Source Code Pro', monospace;
   font-weight: bold;
   font-size: 25px;
   user-select: none;
@@ -26,6 +26,6 @@ const StyledButton = styled.div`
 
 export default ({ onClick, value, theme }) => (
   <StyledButton theme={theme} onClick={() => onClick(value)}>
-    {value || <Icon name={"clear"} size="20" theme={theme} />}
+    {value || <Icon name={'clear'} size="20" theme={theme} />}
   </StyledButton>
 );

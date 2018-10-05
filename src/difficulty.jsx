@@ -5,9 +5,6 @@ import Sudoku from 't-sudoku-generator';
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
-  componentDidMount() {
-    this.props.history.push('/easy');
-  }
 
   onDifficultyHandler = e => {
     if (this.props.location.pathname.split('/').pop() === e.target.value) {

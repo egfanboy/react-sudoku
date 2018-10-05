@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
-import Square from "./sudoku-square";
-import ButtonBar from "./button-bar";
-import Dialog from "./dialog";
+import Square from './sudoku-square';
+import ButtonBar from './button-bar';
+import Dialog from './dialog';
 
 const Main = styled.div`
   display: flex;
@@ -16,21 +16,10 @@ const Main = styled.div`
 `;
 
 const orangeTheme = {
-  primary: "rgba(255,90,0,1)",
-  secondary: "rgba(0,0,0,1)",
-  board: "rgba(255,90,0,0.7)",
-  overlay: "rgba(255,90,0,0.2)"
-};
-
-const basicState = {
-  selectedBoardIndex: null,
-  values: {},
-  done: false,
-  valid: false,
-  selectedRowIndex: null,
-  selectedIndex: null,
-  openDialog: false,
-  theme: orangeTheme
+  primary: 'rgba(255,90,0,1)',
+  secondary: 'rgba(0,0,0,1)',
+  board: 'rgba(255,90,0,0.7)',
+  overlay: 'rgba(255,90,0,0.2)'
 };
 
 class Sudoku extends React.Component {
@@ -67,7 +56,7 @@ class Sudoku extends React.Component {
     if (Object.keys(values).length === 0) return;
     Object.keys(values).forEach(v => {
       console.log(values[v]);
-      if (values[v]["value"] === "" || values[v]["value"] === null)
+      if (values[v]['value'] === '' || values[v]['value'] === null)
         done = false;
     });
 
@@ -80,10 +69,10 @@ class Sudoku extends React.Component {
   handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
+
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
-    if (selectedBoardIndex === null) return;
     this.setValue(
       selectedBoardIndex,
       Object.assign(selectedBoardIndexValue, { value })
@@ -107,7 +96,7 @@ class Sudoku extends React.Component {
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
-    return valueForIndex && valueForIndex["value"];
+    return valueForIndex && valueForIndex['value'];
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
@@ -126,7 +115,7 @@ class Sudoku extends React.Component {
       <Square
         theme={theme}
         key={(rowIndex + 1) * index + 10}
-        value={value === null ? "" : value}
+        value={value}
         initialValue={initialValue}
         answer={answer}
         rowIndex={rowIndex + 1}
@@ -146,8 +135,8 @@ class Sudoku extends React.Component {
       <div
         key={i}
         style={{
-          display: "flex",
-          width: "500px"
+          display: 'flex',
+          width: '500px'
         }}
       >
         {x.map(this.buildRow(i))}
