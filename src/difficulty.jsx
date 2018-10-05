@@ -6,15 +6,14 @@ import Sudoku from 't-sudoku-generator';
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
 
-  onDifficultyHandler = e => {
-    if (this.props.location.pathname.split('/').pop() === e.target.value) {
-      return;
-    }
-    this.props.history.push(`/${e.target.value}`);
-    this.setState({
-      difficulty: e.target.value
-    });
+  componentDidMount() {
+    this.onDifficultyHandler(undefined, 'easy');
+  }
+  
+  onDifficultyHandler = (e, difficulty) => {
+    this.setState({ difficulty }, () => this.props.history.push(`/${difficulty}`));
   };
+
   render() {
     return (
       <Fragment>
