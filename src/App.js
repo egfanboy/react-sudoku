@@ -1,10 +1,20 @@
 import React, { Component, Fragment } from 'react';
-
+import styled from "styled-components";
 import { BrowserRouter, Route } from 'react-router-dom';
 import Difficulty from './difficulty';
 import { easy, medium, hard } from 't-sudoku-generator';
 
 import Board from './sudoku';
+
+const StyledApp = styled.div`
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+`;
 
 const Easy = () => {
   return <Board board={easy()} />;
@@ -18,17 +28,7 @@ const Hard = () => {
 class App extends Component {
   render() {
     return (
-      <div
-        style={{
-          display: 'flex',
-          backgroundColor: 'white',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100%'
-        }}
-      >
+      <StyledApp>
         <BrowserRouter>
           <Fragment>
             <Difficulty />
@@ -37,7 +37,7 @@ class App extends Component {
             <Route exact path="/hard" component={Hard} />
           </Fragment>
         </BrowserRouter>
-      </div>
+      </StyledApp>
     );
   }
 }
