@@ -51,26 +51,43 @@ const Main = styled.div`
 `;
 const propTypes = {};
 
-const Dialog = props => {
+class Dialog extends React.Component{
+
+render() {
+    const {
+      header,
+      message,
+      completionTimeMessage,
+      isOpen,
+      stateManager
+    } = this.props;
+
+    return (
+      <Main isOpen={isOpen}>
+        {isOpen && (
+          <StyledDialog>
+            <Title>{header}</Title>
+            <Message>{message}</Message>
+            <Message>{completionTimeMessage}</Message>
+
+            <StyledButton onClick={stateManager}>
+              {'🔥 Wow I am awesome 🔥'}
+            </StyledButton>
+          </StyledDialog>
+        )}
+      </Main>
+    );
+  }
+}
+
+}
+
+
+Dialog = props => {
   const {
-    header, message, isOpen, stateManager,
+    header, message, isOpen, stateManager,completionTimeMessage
   } = props;
 
-  return (
-    <Main isOpen={isOpen}>
-      {isOpen && (
-        <StyledDialog>
-          <Title>{header}</Title>
-          <Message>{message}</Message>
-
-          <StyledButton onClick={stateManager}>
-            {'🔥 Wow I am awesome 🔥'}
-          </StyledButton>
-        </StyledDialog>
-      )}
-    </Main>
-  );
-};
 
 Dialog.propTypes = propTypes;
 

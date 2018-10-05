@@ -30,6 +30,7 @@ const orangeTheme = {
 
 class Sudoku extends React.Component {
   state = {
+    startDate: new Date(),
     board: null,
     selectedBoardIndex: null,
     values: {},
@@ -140,7 +141,10 @@ class Sudoku extends React.Component {
 
   render() {
     const { board } = this.props;
-    const { openDialog, theme } = this.state;
+    const { openDialog, theme, startDate } = this.state;
+    const gameTimeInSeconds = Math.round(
+      (Date.now() - startDate.getTime()) / 1000
+    );
 
     return (
       <Fragment>
@@ -152,6 +156,7 @@ class Sudoku extends React.Component {
             stateManager={this.setDialogState}
             header="Congratz"
             message="You did it 👏"
+            completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
           />
         </Main>
         <ButtonBar theme={theme} onClick={this.handleButtonPress} />
