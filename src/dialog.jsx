@@ -49,7 +49,6 @@ const Main = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
 `;
-const propTypes = {};
 
 const renderDialog = props => {
   const {
@@ -81,7 +80,5 @@ class Dialog extends React.Component {
     return renderDialog(this.props);
   }
 }
-
-Dialog.propTypes = propTypes;
 
 export default Dialog;
