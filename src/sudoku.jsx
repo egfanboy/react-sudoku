@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
-
+import styled, { ThemeProvider } from 'styled-components';
+import { getTheme, ThemeSelector } from './themes';
 import Square from './sudoku-square';
 import ButtonBar from './button-bar';
 import Dialog from './dialog';
@@ -8,25 +8,27 @@ import Dialog from './dialog';
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${({ theme }) => `${theme.background}`};
   border-radius: 10px;
   width: 460px;
   overflow: hidden;
   box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
   zoom: 1.25;
+  z-index: 99;
+`;
+
+const Background = styled.div`
+  background-color: ${({ theme }) => `${theme.background}`};
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  margin: auto;
 `;
 
 const Board = styled.div`
   display: flex;
   width: 500px;
 `;
-
-const orangeTheme = {
-  primary: 'rgba(255,90,0,1)',
-  secondary: 'rgba(0,0,0,1)',
-  board: 'rgba(255,90,0,0.7)',
-  overlay: 'rgba(255,90,0,0.2)',
-};
 
 class Sudoku extends React.Component {
   state = {
@@ -38,8 +40,8 @@ class Sudoku extends React.Component {
     selectedRowIndex: null,
     selectedIndex: null,
     openDialog: false,
-    theme: orangeTheme,
-  };
+    theme: getTheme()
+  }
 
   componentDidMount() {
     document.addEventListener('keyup', this.onKeypress);
@@ -60,6 +62,10 @@ class Sudoku extends React.Component {
     }
   }
 
+  changeTheme = name => {
+    this.setState({ theme: getTheme(name) })
+  }
+
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
 
   setValue = (boardIndex, value) => {
@@ -70,12 +76,17 @@ class Sudoku extends React.Component {
       }),
     });
     this.isDone();
-  };
+  }
 
   setDialogState = () => {
+<<<<<<< HEAD
+    this.setState({ openDialog: !this.state.openDialog });
+  }
+=======
     const { openDialog } = this.state;
     this.setState({ openDialog: !openDialog });
   };
+>>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
 
   isDone = () => {
     const { values } = this.state;
@@ -89,9 +100,15 @@ class Sudoku extends React.Component {
     if (done) {
       this.setState({ done }, () => this.validate());
     }
+<<<<<<< HEAD
+  }
+
+  getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index)
+=======
   };
 
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
+>>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
 
   handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
@@ -104,7 +121,7 @@ class Sudoku extends React.Component {
       selectedBoardIndex,
       Object.assign(selectedBoardIndexValue, { value }),
     );
-  };
+  }
 
   validate = () => {
     const { values } = this.state;
@@ -116,21 +133,30 @@ class Sudoku extends React.Component {
     });
 
     if (done && !errors) this.setDialogState();
-  };
+  }
 
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
+<<<<<<< HEAD
+    return valueForIndex && valueForIndex['value'];
+  }
+=======
     return valueForIndex && valueForIndex.value;
   };
+>>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
     const {
       selectedBoardIndex,
       selectedIndex,
       selectedRowIndex,
+<<<<<<< HEAD
+      board
+=======
       theme,
       board,
+>>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
     } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -138,7 +164,6 @@ class Sudoku extends React.Component {
 
     return (
       <Square
-        theme={theme}
         key={(rowIndex + 1) * index + 10}
         value={value}
         initialValue={initialValue}
@@ -154,6 +179,35 @@ class Sudoku extends React.Component {
         setValue={this.setValue}
       />
     );
+<<<<<<< HEAD
+  }
+
+  buildBoard = (x, i) => {
+    return <Board key={i}>{x.map(this.buildRow(i))}</Board>;
+  }
+
+  render() {
+    const { board } = this.props;
+    const { openDialog } = this.state;
+
+    return (
+      <ThemeProvider theme={this.state.theme}>
+        <Fragment>
+          <Background />
+          <Main>
+            <ThemeSelector onChange={this.changeTheme}/>
+            {board.map(this.buildBoard)}
+            <Dialog
+              isOpen={openDialog}
+              stateManager={this.setDialogState}
+              header="Congratz"
+              message="You did it 👏"
+            />
+          </Main>
+          <ButtonBar onClick={this.handleButtonPress} />
+        </Fragment>
+      </ThemeProvider>
+=======
   };
 
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
@@ -180,6 +234,7 @@ class Sudoku extends React.Component {
         </Main>
         <ButtonBar theme={theme} onClick={this.handleButtonPress} />
       </Fragment>
+>>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
     );
   }
 }

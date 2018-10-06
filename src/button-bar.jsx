@@ -5,11 +5,14 @@ import Button from './button';
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 99;
 `;
 const FirstRow = styled.div`
+  color: ${({ theme }) => `${theme.inverted}`};
   display: flex;
 `;
 const SecondRow = styled.div`
+  color: ${({ theme }) => `${theme.inverted}`};
   display: flex;
 `;
 
