@@ -1,8 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Container from './container.styled';
-import StyledSelect from './select.styled';
+import { Container, StyledSelect } from './difficulty.styled';
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
