@@ -1,6 +1,5 @@
 import React from 'react';
-import Value from './value.styled';
-import Main from './value-wrapper.styled';
+import { Main, Value } from './value-wrapper.styled';
 
 const ValueWrapper = ({ value, ...styleProps }) => (
   <Main>
