@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledDialog = styled.div`
   height: 300px;
@@ -13,14 +13,14 @@ const StyledDialog = styled.div`
   box-shadow: 0 0 1px 5px white;
   border-radius: 8px;
   color: white;
-`;
+`
 const Title = styled.h2`
   user-select: none;
   margin-bottom: 50px;
-`;
+`
 const Message = styled.h4`
   user-select: none;
-`;
+`
 const StyledButton = styled.button`
   padding: 10px 30px;
   border-radius: 5px;
@@ -35,7 +35,7 @@ const StyledButton = styled.button`
     border: solid 1px #ff6200;
     color: #ff6200;
   }
-`;
+`
 const Main = styled.div`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: center;
@@ -48,23 +48,16 @@ const Main = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
-`;
-const propTypes = {};
+`
+const propTypes = {}
 
-class Dialog extends React.Component{
-
-render() {
-    const {
-      header,
-      message,
-      completionTimeMessage,
-      isOpen,
-      stateManager
-    } = this.props;
+class Dialog extends React.Component {
+  render () {
+    const { header, message, completionTimeMessage, isOpen, stateManager } = this.props
 
     return (
       <Main isOpen={isOpen}>
-        {isOpen && (
+        {isOpen &&
           <StyledDialog>
             <Title>{header}</Title>
             <Message>{message}</Message>
@@ -73,22 +66,12 @@ render() {
             <StyledButton onClick={stateManager}>
               {'🔥 Wow I am awesome 🔥'}
             </StyledButton>
-          </StyledDialog>
-        )}
+          </StyledDialog>}
       </Main>
-    );
+    )
   }
 }
 
-}
+Dialog.propTypes = propTypes
 
-
-Dialog = props => {
-  const {
-    header, message, isOpen, stateManager,completionTimeMessage
-  } = props;
-
-
-Dialog.propTypes = propTypes;
-
-export default Dialog;
+export default Dialog
