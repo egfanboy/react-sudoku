@@ -50,31 +50,34 @@ const Main = styled.div`
   z-index: 3;
 `;
 
-class Dialog extends React.Component{
+const renderDialog = props => {
+  const {
+    header,
+    message,
+    completionTimeMessage,
+    isOpen,
+    stateManager,
+  } = props;
+
+  return (
+    <Main isOpen={isOpen}>
+      {isOpen && (
+        <StyledDialog>
+          <Title>{header}</Title>
+          <Message>{message}</Message>
+          <Message>{completionTimeMessage}</Message>
+          <StyledButton onClick={stateManager}>
+            {'🔥 Wow I am awesome 🔥'}
+          </StyledButton>
+        </StyledDialog>
+      )}
+    </Main>
+  );
+};
+
+class Dialog extends React.Component {
   render() {
-    const {
-      header,
-      message,
-      completionTimeMessage,
-      isOpen,
-      stateManager
-    } = this.props;
-
-    return (
-      <Main isOpen={isOpen}>
-        {isOpen && (
-          <StyledDialog>
-            <Title>{header}</Title>
-            <Message>{message}</Message>
-            <Message>{completionTimeMessage}</Message>
-
-            <StyledButton onClick={stateManager}>
-              {'🔥 Wow I am awesome 🔥'}
-            </StyledButton>
-          </StyledDialog>
-        )}
-      </Main>
-    );
+    return renderDialog(this.props);
   }
 }
 
