@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
-
+import styled, { ThemeProvider } from 'styled-components';
+import { getTheme, ThemeSelector } from './themes';
 import Square from './sudoku-square';
 import ButtonBar from './button-bar';
 import Dialog from './dialog';
@@ -8,25 +8,27 @@ import Dialog from './dialog';
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${({ theme }) => `${theme.background}`};
   border-radius: 10px;
   width: 460px;
   overflow: hidden;
   box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
   zoom: 1.25;
+  z-index: 99;
+`;
+
+const Background = styled.div`
+  background-color: ${({ theme }) => `${theme.background}`};
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  margin: auto;
 `;
 
 const Board = styled.div`
   display: flex;
   width: 500px;
 `;
-
-const orangeTheme = {
-  primary: 'rgba(255,90,0,1)',
-  secondary: 'rgba(0,0,0,1)',
-  board: 'rgba(255,90,0,0.7)',
-  overlay: 'rgba(255,90,0,0.2)'
-};
 
 class Sudoku extends React.Component {
   state = {
@@ -38,10 +40,15 @@ class Sudoku extends React.Component {
     selectedRowIndex: null,
     selectedIndex: null,
     openDialog: false,
-    theme: orangeTheme
-  };
+    theme: getTheme()
+  }
 
-  setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
+  changeTheme = name => {
+    this.setState({ theme: getTheme(name) })
+  }
+
+  setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes })
+
   setValue = (boardIndex, value) => {
     this.setState(
       state =>
@@ -50,11 +57,12 @@ class Sudoku extends React.Component {
         }))
     );
     this.isDone();
-  };
+  }
 
   setDialogState = () => {
     this.setState({ openDialog: !this.state.openDialog });
-  };
+  }
+
   isDone = () => {
     const { values } = this.state;
     let done = true;
@@ -68,8 +76,9 @@ class Sudoku extends React.Component {
     if (done) {
       this.setState({ done }, () => this.validate());
     }
-  };
-  getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
+  }
+
+  getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index)
 
   handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
@@ -82,7 +91,7 @@ class Sudoku extends React.Component {
       selectedBoardIndex,
       Object.assign(selectedBoardIndexValue, { value })
     );
-  };
+  }
 
   validate = () => {
     const { values } = this.state;
@@ -94,20 +103,19 @@ class Sudoku extends React.Component {
     });
 
     if (done && !errors) this.setDialogState();
-  };
+  }
 
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
     return valueForIndex && valueForIndex['value'];
-  };
+  }
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
     const {
       selectedBoardIndex,
       selectedIndex,
       selectedRowIndex,
-      theme,
       board
     } = this.state;
 
@@ -116,7 +124,6 @@ class Sudoku extends React.Component {
 
     return (
       <Square
-        theme={theme}
         key={(rowIndex + 1) * index + 10}
         value={value}
         initialValue={initialValue}
@@ -132,28 +139,33 @@ class Sudoku extends React.Component {
         setValue={this.setValue}
       />
     );
-  };
+  }
+
   buildBoard = (x, i) => {
     return <Board key={i}>{x.map(this.buildRow(i))}</Board>;
-  };
+  }
+
   render() {
     const { board } = this.props;
-    const { openDialog, theme } = this.state;
+    const { openDialog } = this.state;
 
     return (
-      <Fragment>
-        <Main theme={theme}>
-          {board.map(this.buildBoard)}
-          <Dialog
-            theme={theme}
-            isOpen={openDialog}
-            stateManager={this.setDialogState}
-            header="Congratz"
-            message="You did it 👏"
-          />
-        </Main>
-        <ButtonBar theme={theme} onClick={this.handleButtonPress} />
-      </Fragment>
+      <ThemeProvider theme={this.state.theme}>
+        <Fragment>
+          <Background />
+          <Main>
+            <ThemeSelector onChange={this.changeTheme}/>
+            {board.map(this.buildBoard)}
+            <Dialog
+              isOpen={openDialog}
+              stateManager={this.setDialogState}
+              header="Congratz"
+              message="You did it 👏"
+            />
+          </Main>
+          <ButtonBar onClick={this.handleButtonPress} />
+        </Fragment>
+      </ThemeProvider>
     );
   }
 }

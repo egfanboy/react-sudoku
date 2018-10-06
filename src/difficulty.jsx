@@ -1,7 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { withRouter } from 'react-router-dom';
+
+const Container = styled.div`
+  position: absolute;
+  margin: auto 0;
+  z-index: 99;
+  top: 0;
+`;
 
 const StyledSelect = styled.select`
   margin-bottom: 10px;
@@ -19,11 +26,11 @@ class Difficulty extends React.Component {
     this.setState({ difficulty }, () =>
       this.props.history.push(`/${difficulty}`)
     );
-  };
+  }
 
   render() {
     return (
-      <Fragment>
+      <Container>
         <StyledSelect
           onChange={e => this.onDifficultyHandler(e.target.value)}
           value={this.state.difficulty}
@@ -32,7 +39,7 @@ class Difficulty extends React.Component {
           <option value="medium">{'medium'}</option>
           <option value="hard">{'hard'}</option>
         </StyledSelect>
-      </Fragment>
+      </Container>
     );
   }
 }

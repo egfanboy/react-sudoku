@@ -8,7 +8,6 @@ import Board from './sudoku';
 
 const StyledApp = styled.div`
   display: flex;
-  background-color: white;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -25,7 +24,7 @@ const Medium = () => {
 const Hard = () => {
   return <Board board={hard()} />;
 };
-class App extends Component {
+class App extends Component {  
   render() {
     return (
       <StyledApp>
