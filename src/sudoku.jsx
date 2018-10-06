@@ -12,6 +12,7 @@ const Main = styled.div`
   border-radius: 10px;
   width: 460px;
   overflow: hidden;
+  color: ${({ theme }) => `${theme.numberColor}`}
   box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
   zoom: 1.25;
   z-index: 99;
@@ -40,7 +41,7 @@ class Sudoku extends React.Component {
     selectedRowIndex: null,
     selectedIndex: null,
     openDialog: false,
-    theme: getTheme()
+    theme: getTheme(),
   }
 
   componentDidMount() {
@@ -79,14 +80,9 @@ class Sudoku extends React.Component {
   }
 
   setDialogState = () => {
-<<<<<<< HEAD
-    this.setState({ openDialog: !this.state.openDialog });
-  }
-=======
     const { openDialog } = this.state;
     this.setState({ openDialog: !openDialog });
   };
->>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
 
   isDone = () => {
     const { values } = this.state;
@@ -100,15 +96,9 @@ class Sudoku extends React.Component {
     if (done) {
       this.setState({ done }, () => this.validate());
     }
-<<<<<<< HEAD
   }
 
-  getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index)
-=======
-  };
-
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
->>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
 
   handleButtonPress = value => {
     const { selectedBoardIndex, values } = this.state;
@@ -138,25 +128,16 @@ class Sudoku extends React.Component {
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
-<<<<<<< HEAD
-    return valueForIndex && valueForIndex['value'];
-  }
-=======
     return valueForIndex && valueForIndex.value;
-  };
->>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
+  }
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
     const {
       selectedBoardIndex,
       selectedIndex,
       selectedRowIndex,
-<<<<<<< HEAD
-      board
-=======
       theme,
       board,
->>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
     } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -179,45 +160,14 @@ class Sudoku extends React.Component {
         setValue={this.setValue}
       />
     );
-<<<<<<< HEAD
   }
-
-  buildBoard = (x, i) => {
-    return <Board key={i}>{x.map(this.buildRow(i))}</Board>;
-  }
-
-  render() {
-    const { board } = this.props;
-    const { openDialog } = this.state;
-
-    return (
-      <ThemeProvider theme={this.state.theme}>
-        <Fragment>
-          <Background />
-          <Main>
-            <ThemeSelector onChange={this.changeTheme}/>
-            {board.map(this.buildBoard)}
-            <Dialog
-              isOpen={openDialog}
-              stateManager={this.setDialogState}
-              header="Congratz"
-              message="You did it 👏"
-            />
-          </Main>
-          <ButtonBar onClick={this.handleButtonPress} />
-        </Fragment>
-      </ThemeProvider>
-=======
-  };
 
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
 
   render() {
     const { board } = this.props;
     const { openDialog, theme, startDate } = this.state;
-    const gameTimeInSeconds = Math.round(
-      (Date.now() - startDate.getTime()) / 1000
-    );
+    const gameTimeInSeconds = Math.round((Date.now() - startDate.getTime()) / 1000);
 
     return (
       <Fragment>
@@ -234,7 +184,6 @@ class Sudoku extends React.Component {
         </Main>
         <ButtonBar theme={theme} onClick={this.handleButtonPress} />
       </Fragment>
->>>>>>> 892c064b264cb7e6ef2789a8620bc89b305f7e9c
     );
   }
 }
