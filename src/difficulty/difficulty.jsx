@@ -1,18 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import { withRouter } from 'react-router-dom';
 
-const Container = styled.div`
-  position: absolute;
-  margin: auto 0;
-  z-index: 99;
-  top: 0;
-`;
-
-const StyledSelect = styled.select`
-  margin-bottom: 10px;
-`;
+import Container from './container.styled';
+import StyledSelect from './select.styled';
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };

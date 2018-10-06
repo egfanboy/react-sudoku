@@ -1,20 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Button from './button';
 
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  z-index: 99;
-`;
-const FirstRow = styled.div`
-  color: ${({ theme }) => `${theme.inverted}`};
-  display: flex;
-`;
-const SecondRow = styled.div`
-  color: ${({ theme }) => `${theme.inverted}`};
-  display: flex;
-`;
+import Main from './main.styled';
+import FirstRow from './first.styled';
+import SecondRow from './second.styled';
 
 const firstButtons = [1, 2, 3, 4, 5];
 const secondButtons = [6, 7, 8, 9, null];
