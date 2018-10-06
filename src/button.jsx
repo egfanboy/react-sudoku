@@ -26,6 +26,6 @@ const StyledButton = styled.div`
 
 export default ({ onClick, value, theme }) => (
   <StyledButton theme={theme} onClick={() => onClick(value)}>
-    {value || <Icon name={'clear'} size="20" theme={theme} />}
+    {value || <Icon name="clear" size="20" theme={theme} />}
   </StyledButton>
 );
