@@ -6,7 +6,8 @@ export default {
     board: 'rgba(255,90,0,0.7)',
     overlay: 'rgba(255,90,0,0.2)',
     background: 'white',
-    inverted: 'black'
+    numberColor: 'black',
+    inverted: 'black',
   },
   darkOrange: {
     name: 'Dark Theme Orange',
@@ -15,7 +16,8 @@ export default {
     board: 'rgba(255,90,0,0.7)',
     overlay: 'rgba(255,90,0,0.2)',
     background: 'black',
-    inverted: 'white'
+    numberColor: 'white',
+    inverted: 'white',
   },
   lightGreen: {
     name: 'Light Theme Green',
@@ -24,7 +26,8 @@ export default {
     board: 'rgba(23,115,69,0.7)',
     overlay: 'rgba(23,115,69,0.2)',
     background: 'white',
-    inverted: 'black'
+    numberColor: 'black',
+    inverted: 'black',
   },
   darkGreen: {
     name: 'Dark Theme Green',
@@ -33,7 +36,8 @@ export default {
     board: 'rgba(0,255,70,0.7)',
     overlay: 'rgba(0,255,70,0.2)',
     background: 'black',
-    inverted: 'white'
+    numberColor: 'white',
+    inverted: 'white',
   },
   lightBlue: {
     name: 'Light Theme Blue',
@@ -42,7 +46,8 @@ export default {
     board: 'rgba(0,90,255,0.7)',
     overlay: 'rgba(0,90,255,0.2)',
     background: 'white',
-    inverted: 'black'
+    numberColor: 'black',
+    inverted: 'black',
   },
   darkBlue: {
     name: 'Dark Theme Blue',
@@ -51,6 +56,7 @@ export default {
     board: 'rgba(0,90,255,0.7)',
     overlay: 'rgba(0,90,255,0.2)',
     background: 'black',
-    inverted: 'white'
-  }
+    numberColor: 'white',
+    inverted: 'white',
+  },
 };

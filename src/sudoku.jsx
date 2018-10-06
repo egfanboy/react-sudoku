@@ -12,6 +12,7 @@ const Main = styled.div`
   border-radius: 10px;
   width: 460px;
   overflow: hidden;
+  color: ${({ theme }) => `${theme.numberColor}`}
   box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
   zoom: 1.25;
   z-index: 99;
@@ -41,7 +42,7 @@ class Sudoku extends React.Component {
     selectedIndex: null,
     openDialog: false,
     theme: getTheme(),
-  };
+  }
 
   componentDidMount() {
     document.addEventListener('keyup', this.onKeypress);
@@ -95,7 +96,7 @@ class Sudoku extends React.Component {
     if (done) {
       this.setState({ done }, () => this.validate());
     }
-  };
+  }
 
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
@@ -155,35 +156,31 @@ class Sudoku extends React.Component {
         setValue={this.setValue}
       />
     );
-  };
+  }
 
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
 
   render() {
     const { board } = this.props;
-    const { openDialog, startDate, theme } = this.state;
-    const gameTimeInSeconds = Math.round(
-      (Date.now() - startDate.getTime()) / 1000
-    );
+    const { openDialog, theme, startDate } = this.state;
+    const gameTimeInSeconds = Math.round((Date.now() - startDate.getTime()) / 1000);
 
     return (
-      <ThemeProvider theme={theme}>
-        <Fragment>
-          <Background />
-          <Main>
-            <ThemeSelector onChange={this.changeTheme} />
-            {board.map(this.buildBoard)}
-            <Dialog
-              isOpen={openDialog}
-              stateManager={this.setDialogState}
-              header="Congratz"
-              message="You did it 👏"
-              completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
-            />
-          </Main>
-          <ButtonBar onClick={this.handleButtonPress} />
-        </Fragment>
-      </ThemeProvider>
+      <Fragment>
+        <Main theme={theme}>
+          {board.map(this.buildBoard)}
+          <Dialog
+            theme={theme}
+            isOpen={openDialog}
+            stateManager={this.setDialogState}
+            header="Congratz"
+            message="You did it 👏"
+            completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
+          />
+        </Main>
+        <ButtonBar theme={theme} onClick={this.handleButtonPress} />
+      </Fragment>
+
     );
   }
 }
