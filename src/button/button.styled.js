@@ -11,6 +11,7 @@ const StyledButton = styled.div`
   justify-content: center;
   height: 40px;
   width: 40px;
+  background-color: ${({ enabled, theme }) => enabled && theme.primary};
   color: ${({ theme }) => `1px solid ${theme.secondary}`};
   border: ${({ theme }) => `1px solid ${theme.primary}`};
   border-radius: 10px;
