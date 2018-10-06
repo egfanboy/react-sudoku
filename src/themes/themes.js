@@ -12,7 +12,7 @@ export default {
   darkOrange: {
     name: 'Dark Theme Orange',
     primary: 'rgba(255,90,0,1)',
-    secondary: 'rgba(0,0,0,1)',
+    secondary: 'rgba(255,255,255,1)',
     board: 'rgba(255,90,0,0.7)',
     overlay: 'rgba(255,90,0,0.2)',
     background: 'black',
@@ -32,7 +32,7 @@ export default {
   darkGreen: {
     name: 'Dark Theme Green',
     primary: 'rgba(0,255,70,1)',
-    secondary: 'rgba(0,0,0,1)',
+    secondary: 'rgba(255,255,255,1)',
     board: 'rgba(0,255,70,0.7)',
     overlay: 'rgba(0,255,70,0.2)',
     background: 'black',
@@ -52,7 +52,7 @@ export default {
   darkBlue: {
     name: 'Dark Theme Blue',
     primary: 'rgba(0,90,255,1)',
-    secondary: 'rgba(0,0,0,1)',
+    secondary: 'rgba(255,255,255,1)',
     board: 'rgba(0,90,255,0.7)',
     overlay: 'rgba(0,90,255,0.2)',
     background: 'black',
