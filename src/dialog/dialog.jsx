@@ -1,10 +1,12 @@
 import React from 'react';
 
-import StyledDialog from './dialog.styled';
-import StyledButton from './button.styled';
-import Message from './message.styled';
-import Title from './title.styled';
-import Main from './main.styled';
+import {
+  StyledDialog,
+  StyledButton,
+  Message,
+  Title,
+  Main,
+} from './dialog.styled';
 
 const renderDialog = props => {
   const {
