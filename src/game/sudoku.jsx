@@ -1,35 +1,11 @@
 import React, { Fragment } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { getTheme, ThemeSelector } from '../themes';
 import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
 import { Dialog } from '../dialog';
 
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => `${theme.background}`};
-  border-radius: 10px;
-  width: 460px;
-  overflow: hidden;
-  color: ${({ theme }) => `${theme.numberColor}`}
-  box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
-  zoom: 1.25;
-  z-index: 99;
-`;
-
-const Background = styled.div`
-  background-color: ${({ theme }) => `${theme.background}`};
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  margin: auto;
-`;
-
-const Board = styled.div`
-  display: flex;
-  width: 500px;
-`;
+import { Main, Background, Board } from './sudoku.styled';
 
 class Sudoku extends React.Component {
   state = {
