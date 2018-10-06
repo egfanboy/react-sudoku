@@ -1,9 +1,7 @@
 import React from 'react';
 import Button from './button';
 
-import Main from './main.styled';
-import FirstRow from './first.styled';
-import SecondRow from './second.styled';
+import { Main, FirstRow, SecondRow } from './button-bar.styled';
 
 const firstButtons = [1, 2, 3, 4, 5];
 const secondButtons = [6, 7, 8, 9, null];
