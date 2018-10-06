@@ -34,9 +34,9 @@ const Board = styled.div`
 class Sudoku extends React.Component {
   state = {
     startDate: new Date(),
-    board: null,
     selectedBoardIndex: null,
     values: {},
+    board: null,
     done: false,
     selectedRowIndex: null,
     selectedIndex: null,
@@ -53,7 +53,7 @@ class Sudoku extends React.Component {
   }
 
   onKeypress = e => {
-    const charCode = (typeof e.which === 'number') ? e.which : e.keyCode;
+    const charCode = typeof e.which === 'number' ? e.which : e.keyCode;
     const value = charCode - 48;
     if (value >= 0 && value <= 9) {
       this.handleButtonPress(value || null);
@@ -61,11 +61,11 @@ class Sudoku extends React.Component {
       // if keypress is the escape key, delete the value set
       this.handleButtonPress(null);
     }
-  }
+  };
 
   changeTheme = name => {
-    this.setState({ theme: getTheme(name) })
-  }
+    this.setState({ theme: getTheme(name) });
+  };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
 
@@ -77,7 +77,7 @@ class Sudoku extends React.Component {
       }),
     });
     this.isDone();
-  }
+  };
 
   setDialogState = () => {
     const { openDialog } = this.state;
@@ -109,9 +109,9 @@ class Sudoku extends React.Component {
 
     this.setValue(
       selectedBoardIndex,
-      Object.assign(selectedBoardIndexValue, { value }),
+      Object.assign(selectedBoardIndexValue, { value })
     );
-  }
+  };
 
   validate = () => {
     const { values } = this.state;
@@ -123,22 +123,18 @@ class Sudoku extends React.Component {
     });
 
     if (done && !errors) this.setDialogState();
-  }
+  };
 
   getValue = boardIndex => {
     const { values } = this.state;
     const valueForIndex = values[boardIndex];
+
     return valueForIndex && valueForIndex.value;
-  }
+  };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
-    const {
-      selectedBoardIndex,
-      selectedIndex,
-      selectedRowIndex,
-      theme,
-      board,
-    } = this.state;
+    const { board } = this.state;
+    const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
     const value = this.getValue(boardIndex);
@@ -184,6 +180,7 @@ class Sudoku extends React.Component {
         </Main>
         <ButtonBar theme={theme} onClick={this.handleButtonPress} />
       </Fragment>
+
     );
   }
 }
