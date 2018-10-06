@@ -49,11 +49,9 @@ const Main = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
 `;
-const propTypes = {};
 
 class Dialog extends React.Component{
-
-render() {
+  render() {
     const {
       header,
       message,
@@ -79,16 +77,5 @@ render() {
     );
   }
 }
-
-}
-
-
-Dialog = props => {
-  const {
-    header, message, isOpen, stateManager,completionTimeMessage
-  } = props;
-
-
-Dialog.propTypes = propTypes;
 
 export default Dialog;
