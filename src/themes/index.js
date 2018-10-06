@@ -1,7 +1,7 @@
 import React from 'react';
 import themes from './themes';
 import { Icon } from '../icon';
-import Select from './select.styled';
+import Select from './index.styled';
 
 export const getTheme = themeName => themes[themeName] || themes.lightOrange;
 
