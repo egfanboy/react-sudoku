@@ -11,9 +11,7 @@ const StyledIcon = styled.i`
   }
 `;
 
-const Icon = ({
-  className, size = '12', name, theme,
-}) => (
+const Icon = ({ className, size = '12', name, theme }) => (
   <StyledIcon
     className={`material-icons ${className}`}
     size={size}

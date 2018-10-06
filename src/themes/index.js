@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import themes from './themes';
-import Icon from '../icon';
+import { Icon } from '../icon';
 
 const Select = styled.div`
   position: relative;
@@ -32,12 +32,14 @@ const Select = styled.div`
   }
 `;
 
-export const getTheme = themename => themes[themename] || themes.lightOrange;
+export const getTheme = themeName => themes[themeName] || themes.lightOrange;
+
 const themesArr = Object.keys(themes);
 
 export class ThemeSelector extends React.Component {
   state = {
     value: 'lightOrange',
+    name: themes.lightOrange.name,
     appThemes: themesArr,
   };
 
@@ -49,27 +51,28 @@ export class ThemeSelector extends React.Component {
     let nextTheme;
 
     if (payload === 'next') {
-      nextTheme = (i !== length - 1 ? appThemes[i + 1] : appThemes[0]);
+      nextTheme = i !== length - 1 ? appThemes[i + 1] : appThemes[0];
     } else if (payload === 'prev') {
-      nextTheme = (i > 0 ? appThemes[i - 1] : appThemes[length - 1]);
+      nextTheme = i > 0 ? appThemes[i - 1] : appThemes[length - 1];
     }
 
     onChange(nextTheme);
 
     this.setState({
-      value: nextTheme
+      value: nextTheme,
+      name: themes[nextTheme].name,
     });
-  }
+  };
 
   render() {
-    const { value } = this.state;
+    const { name, value } = this.state;
 
     return (
       <Select>
         <button type="button" onClick={() => this.handleClick('prev')}>
           <Icon name="chevron_left" size="24" />
         </button>
-        <span>{value}</span>
+        <span>{name}</span>
         <button type="button" onClick={() => this.handleClick('next')}>
           <Icon name="chevron_right" size="24" theme={themes[value]} />
         </button>

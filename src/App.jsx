@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { easy, medium, hard } from 't-sudoku-generator';
-import Difficulty from './difficulty';
+import { Difficulty } from './difficulty';
 
-import Board from './sudoku';
+import { Board } from './game';
 
 const StyledApp = styled.div`
   display: flex;
@@ -17,9 +17,9 @@ const StyledApp = styled.div`
   box-shadow: inset 0 0 10px #eee, inset 0 0 120px #eee, inset 0 0 40px #eee;
 `;
 
-const Easy = () => (<Board board={easy()} />);
-const Medium = () => (<Board board={medium()} />);
-const Hard = () => (<Board board={hard()} />);
+const Easy = () => <Board board={easy()} />;
+const Medium = () => <Board board={medium()} />;
+const Hard = () => <Board board={hard()} />;
 
 const App = () => (
   <StyledApp>
