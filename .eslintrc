@@ -9,20 +9,18 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "extends": [
-    "react-app",
-    "eslint:recommended",
-    "airbnb"
-  ],
-  "plugins": [
-    "jest"
-  ],
+  "extends": ["react-app", "eslint:recommended", "airbnb"],
+  "plugins": ["jest"],
   "rules": {
-    "react/jsx-filename-extension": ["error", {
-      "extensions": [".js", ".jsx"]
-    }],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
     "react/prop-types": "off",
     "no-nested-ternary": "off",
-    "arrow-parens": ["error", "as-needed"]
+    "arrow-parens": ["error", "as-needed"],
+    "comma-dangle": "off"
   }
 }
