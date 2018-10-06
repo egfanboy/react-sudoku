@@ -61,20 +61,18 @@ const renderDialog = props => {
   } = props;
 
   return (
-    <div>
-      <Main isOpen={isOpen}>
-        {isOpen && (
-          <StyledDialog>
-            <Title>{header}</Title>
-            <Message>{message}</Message>
-            <Message>{completionTimeMessage}</Message>
-            <StyledButton onClick={stateManager}>
-              {'🔥 Wow I am awesome 🔥'}
-            </StyledButton>
-          </StyledDialog>
-        )}
-      </Main>
-    </div>
+    <Main isOpen={isOpen}>
+      {isOpen && (
+        <StyledDialog>
+          <Title>{header}</Title>
+          <Message>{message}</Message>
+          <Message>{completionTimeMessage}</Message>
+          <StyledButton onClick={stateManager}>
+            {'🔥 Wow I am awesome 🔥'}
+          </StyledButton>
+        </StyledDialog>
+      )}
+    </Main>
   );
 };
 
