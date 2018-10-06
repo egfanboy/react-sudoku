@@ -6,18 +6,16 @@ const Main = styled.div`
   position: relative;
   width: 50px;
   height: 50px;
-  border-right: ${({ isThickRight, isLastColumn, theme }) =>
-    isThickRight
-      ? `solid 2px ${theme.board}`
-      : isLastColumn
-        ? ''
-        : `solid 1px ${theme.board}`};
-  border-bottom: ${({ isThickBottom, isLastRow, theme }) =>
-    isThickBottom
-      ? `solid 2px ${theme.board}`
-      : isLastRow
-        ? ''
-        : `solid 1px ${theme.board}`};
+  border-right: ${({ isThickRight, isLastColumn, theme }) => (isThickRight
+    ? `solid 2px ${theme.board}`
+    : isLastColumn
+      ? ''
+      : `solid 1px ${theme.board}`)};
+  border-bottom: ${({ isThickBottom, isLastRow, theme }) => (isThickBottom
+    ? `solid 2px ${theme.board}`
+    : isLastRow
+      ? ''
+      : `solid 1px ${theme.board}`)};
   &:hover {
     cursor: pointer;
   }
@@ -28,31 +26,39 @@ const Main = styled.div`
     height: 51px;
     left: 0;
     top: 0;
-
-    background-color: ${({ isSelectedBoardIndex, isSelected, theme }) =>
-      isSelectedBoardIndex ? '' : isSelected ? `${theme.overlay}` : ''};
+    background-color: ${({ isSelectedBoardIndex, isSelected, theme }) => (isSelectedBoardIndex ? '' : isSelected ? `${theme.overlay}` : '')};
   }
 `;
 
 class SudokuSquare extends React.Component {
   state = {
-    value: this.props.value,
-    originalValue: this.props.initialValue
+    originalValue: null,
   };
 
+  constructor(props) {
+    super(props);
+    const { initialValue } = this.props;
+    this.state.originalValue = initialValue;
+  }
+
   componentDidMount() {
-    const { setValue, answer, boardIndex, initialValue } = this.props;
+    const {
+      setValue, answer, boardIndex, initialValue,
+    } = this.props;
     setValue(boardIndex, {
       value: initialValue,
       answer,
-      isOriginal: this.isOriginal()
+      isOriginal: this.isOriginal(),
     });
   }
 
+  // eslint-disable-next-line react/destructuring-assignment
   isOriginal = () => this.state.originalValue !== null;
 
   isHighlighted = () => {
-    const { selectedIndex, rowIndex, selectedRowIndex, index } = this.props;
+    const {
+      selectedIndex, rowIndex, selectedRowIndex, index,
+    } = this.props;
     return selectedIndex === index || rowIndex === selectedRowIndex;
   };
 
@@ -65,7 +71,7 @@ class SudokuSquare extends React.Component {
       selectedBoardIndex,
       setSelectedBoardIndexes,
       initialValue,
-      theme
+      theme,
     } = this.props;
 
     return (
@@ -77,12 +83,11 @@ class SudokuSquare extends React.Component {
         isThickBottom={rowIndex === 3 || rowIndex === 6 ? 1 : 0}
         isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}
         theme={theme}
-        onClick={() =>
-          setSelectedBoardIndexes({
-            selectedBoardIndex: boardIndex,
-            selectedIndex: index,
-            selectedRowIndex: rowIndex
-          })
+        onClick={() => setSelectedBoardIndexes({
+          selectedBoardIndex: boardIndex,
+          selectedIndex: index,
+          selectedRowIndex: rowIndex,
+        })
         }
       >
         <ValueWrapper
