@@ -42,7 +42,7 @@ class Sudoku extends React.Component {
   };
 
   componentDidMount() {
-    document.addEventListener('keypress', this.onKeypress);
+    document.addEventListener('keyup', this.onKeypress);
   }
 
   componentWillUnmount() {
@@ -54,6 +54,9 @@ class Sudoku extends React.Component {
     const value = charCode - 48;
     if (value >= 0 && value <= 9) {
       this.handleButtonPress(value || null);
+    } else if (charCode === 27) {
+      // if keypress is the escape key, delete the value set
+      this.handleButtonPress(null);
     }
   }
 
