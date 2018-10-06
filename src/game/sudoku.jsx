@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { getTheme, ThemeSelector } from './themes';
-import Square from './sudoku-square';
-import ButtonBar from './button-bar';
-import Dialog from './dialog';
+import { getTheme, ThemeSelector } from '../themes';
+import Square from '../game-square/sudoku-square';
+import ButtonBar from '../button/button-bar';
+import { Dialog } from '../dialog';
 
 const Main = styled.div`
   display: flex;

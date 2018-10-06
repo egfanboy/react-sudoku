@@ -1,6 +1,6 @@
 export default {
   lightOrange: {
-    name: 'Light Theme Orange',
+    name: 'Light Orange',
     primary: 'rgba(255,90,0,1)',
     secondary: 'rgba(0,0,0,1)',
     board: 'rgba(255,90,0,0.7)',
@@ -10,7 +10,7 @@ export default {
     inverted: 'black',
   },
   darkOrange: {
-    name: 'Dark Theme Orange',
+    name: 'Dark Orange',
     primary: 'rgba(255,90,0,1)',
     secondary: 'rgba(255,255,255,1)',
     board: 'rgba(255,90,0,0.7)',
@@ -20,7 +20,7 @@ export default {
     inverted: 'white',
   },
   lightGreen: {
-    name: 'Light Theme Green',
+    name: 'Light Green',
     primary: 'rgba(23,115,69,1)',
     secondary: 'rgba(0,0,0,1)',
     board: 'rgba(23,115,69,0.7)',
@@ -30,7 +30,7 @@ export default {
     inverted: 'black',
   },
   darkGreen: {
-    name: 'Dark Theme Green',
+    name: 'Dark Green',
     primary: 'rgba(0,255,70,1)',
     secondary: 'rgba(255,255,255,1)',
     board: 'rgba(0,255,70,0.7)',
@@ -40,7 +40,7 @@ export default {
     inverted: 'white',
   },
   lightBlue: {
-    name: 'Light Theme Blue',
+    name: 'Light Blue',
     primary: 'rgba(0,90,255,1)',
     secondary: 'rgba(0,0,0,1)',
     board: 'rgba(0,90,255,0.7)',
@@ -50,7 +50,7 @@ export default {
     inverted: 'black',
   },
   darkBlue: {
-    name: 'Dark Theme Blue',
+    name: 'Dark Blue',
     primary: 'rgba(0,90,255,1)',
     secondary: 'rgba(255,255,255,1)',
     board: 'rgba(0,90,255,0.7)',

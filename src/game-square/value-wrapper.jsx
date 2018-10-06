@@ -13,9 +13,10 @@ const Value = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  color: ${({ isOriginal, theme }) => (isOriginal ? theme.primary : theme.secondary)};
+  color: ${({ isOriginal, theme }) =>
+    isOriginal ? theme.primary : theme.secondary};
   justify-content: center;
-  font-family: "Source Code Pro", monospace;
+  font-family: 'Source Code Pro', monospace;
   font-weight: bold;
   font-size: 25px;
   align-items: center;
