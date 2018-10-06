@@ -5,9 +5,7 @@ import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
 import { Dialog } from '../dialog';
 
-import Background from './background.styled';
-import Board from './board.styled';
-import Main from './main.styled';
+import { Main, Background, Board } from './sudoku.styled';
 
 class Sudoku extends React.Component {
   state = {

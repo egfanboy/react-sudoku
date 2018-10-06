@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Main = styled.div`
+export const Main = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => `${theme.background}`};
@@ -13,4 +13,15 @@ const Main = styled.div`
   z-index: 99;
 `;
 
-export default Main;
+export const Background = styled.div`
+  background-color: ${({ theme }) => `${theme.background}`};
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  margin: auto;
+`;
+
+export const Board = styled.div`
+  display: flex;
+  width: 500px;
+`;
