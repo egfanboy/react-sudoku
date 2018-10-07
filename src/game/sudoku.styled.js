@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => `${theme.background}`};
