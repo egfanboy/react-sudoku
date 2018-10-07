@@ -1,6 +1,7 @@
 import React from 'react';
 import Main from './sudoku-square.styled';
 import ValueWrapper from './value-wrapper';
+import NotesWrapper from './notes-wrapper';
 
 class SudokuSquare extends React.Component {
   state = {
@@ -40,6 +41,7 @@ class SudokuSquare extends React.Component {
       setSelectedBoardIndexes,
       initialValue,
       theme,
+      notes,
     } = this.props;
 
     return (
@@ -59,13 +61,18 @@ class SudokuSquare extends React.Component {
           })
         }
       >
-        <ValueWrapper
-          theme={theme}
-          isOriginal={this.isOriginal() ? 1 : 0}
-          isHighlighted={this.isHighlighted() ? 1 : 0}
-          isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}
-          value={initialValue || value}
-        />
+        {notes.length ? (
+          <NotesWrapper values={notes} />
+        ) : (
+          <ValueWrapper
+            theme={theme}
+            isOriginal={this.isOriginal() ? 1 : 0}
+            isHighlighted={this.isHighlighted() ? 1 : 0}
+            isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}
+            value={initialValue || value}
+            smaller={notes.length > 0}
+          />
+        )}
       </Main>
     );
   }

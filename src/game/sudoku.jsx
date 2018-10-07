@@ -18,6 +18,8 @@ class Sudoku extends React.Component {
     selectedIndex: null,
     openDialog: false,
     theme: getTheme(),
+    notes: {},
+    noteEnabled: false,
   };
 
   componentDidMount() {
@@ -46,11 +48,18 @@ class Sudoku extends React.Component {
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
 
   setValue = (boardIndex, value) => {
-    const { values } = this.state;
+    const { values, notes } = this.state;
+
     this.setState({
       values: Object.assign(values, {
         [`${boardIndex}`]: value,
       }),
+    });
+    this.setState({
+      notes: {
+        ...notes,
+        [boardIndex]: [],
+      },
     });
     this.isDone();
   };
@@ -77,16 +86,37 @@ class Sudoku extends React.Component {
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
   handleButtonPress = value => {
-    const { selectedBoardIndex, values } = this.state;
+    const { selectedBoardIndex, values, notes, noteEnabled } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
-    this.setValue(
-      selectedBoardIndex,
-      Object.assign(selectedBoardIndexValue, { value })
-    );
+    if (noteEnabled && value !== '✎') {
+      const existingNotes = value ? notes[selectedBoardIndex] || [] : [];
+      this.setState({
+        notes: {
+          ...notes,
+          [selectedBoardIndex]: existingNotes.includes(value)
+            ? existingNotes.filter(note => note !== value)
+            : [...existingNotes, value].filter(val => val).sort(),
+        },
+        values: Object.assign(values, {
+          [`${selectedBoardIndex}`]: Object.assign(selectedBoardIndexValue, {
+            value: null,
+          }),
+        }),
+      });
+    } else if (value === '✎') {
+      this.setState({
+        noteEnabled: !noteEnabled,
+      });
+    } else {
+      this.setValue(
+        selectedBoardIndex,
+        Object.assign(selectedBoardIndexValue, { value })
+      );
+    }
   };
 
   validate = () => {
@@ -109,7 +139,7 @@ class Sudoku extends React.Component {
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
-    const { board } = this.state;
+    const { board, notes } = this.state;
     const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -130,6 +160,7 @@ class Sudoku extends React.Component {
         selectedBoardIndex={selectedBoardIndex}
         setSelectedBoardIndexes={this.setSelectedBoardIndexes}
         setValue={this.setValue}
+        notes={notes[boardIndex] || []}
       />
     );
   };
@@ -138,7 +169,15 @@ class Sudoku extends React.Component {
 
   render() {
     const { board } = this.props;
-    const { openDialog, theme, startDate } = this.state;
+    const {
+      openDialog,
+      theme,
+      startDate,
+      noteEnabled,
+      selectedBoardIndex,
+      notes,
+    } = this.state;
+
     const gameTimeInSeconds = Math.round(
       (Date.now() - startDate.getTime()) / 1000
     );
@@ -158,7 +197,12 @@ class Sudoku extends React.Component {
               completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
             />
           </Main>
-          <ButtonBar onClick={this.handleButtonPress} />
+          <ButtonBar
+            onClick={this.handleButtonPress}
+            enabledButtons={
+              noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
+            }
+          />
         </Fragment>
       </ThemeProvider>
     );
