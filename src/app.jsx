@@ -5,6 +5,7 @@ import { easy, medium, hard } from 't-sudoku-generator';
 import StyledApp from './app.styled';
 import { Difficulty } from './difficulty';
 import { Board } from './game';
+import Footer from './footer/footer';
 
 const Easy = () => <Board board={easy()} />;
 const Medium = () => <Board board={medium()} />;
@@ -20,6 +21,7 @@ const App = () => (
         <Route exact path="/hard" component={Hard} />
       </Fragment>
     </BrowserRouter>
+    <Footer />
   </StyledApp>
 );
 
