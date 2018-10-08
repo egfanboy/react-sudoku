@@ -6,6 +6,7 @@ import ButtonBar from '../button/button-bar';
 import { Dialog } from '../dialog';
 
 import { Main, Background, Board } from './sudoku.styled';
+import { Timer } from '../timer';
 
 class Sudoku extends React.Component {
   state = {
@@ -203,6 +204,7 @@ class Sudoku extends React.Component {
               noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
             }
           />
+          <Timer startTime={startDate.getTime()} />
         </Fragment>
       </ThemeProvider>
     );
