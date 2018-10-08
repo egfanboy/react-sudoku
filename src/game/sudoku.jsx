@@ -204,7 +204,7 @@ class Sudoku extends React.Component {
               noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
             }
           />
-          <Timer startTime={startDate.getTime()}/>
+          <Timer startTime={startDate.getTime()} />
         </Fragment>
       </ThemeProvider>
     );
