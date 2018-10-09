@@ -9,6 +9,7 @@ const StyledApp = styled.div`
   height: 100vh;
   width: 100%;
   box-shadow: inset 0 0 10px #eee, inset 0 0 120px #eee, inset 0 0 40px #eee;
+  background-color: rgb(236, 236, 236);
 `;
 
 export default StyledApp;
