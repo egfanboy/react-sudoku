@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Select } from 'antd';
 
-import { Container, StyledSelect } from './difficulty.styled';
+const { Option } = Select;
 
 class Difficulty extends React.Component {
   state = { difficulty: 'easy' };
@@ -20,16 +21,18 @@ class Difficulty extends React.Component {
     const { difficulty } = this.state;
 
     return (
-      <Container>
-        <StyledSelect
-          onChange={e => this.onDifficultyHandler(e.target.value)}
+      <React.Fragment>
+        <Select
+          defaultValue="Easy"
+          style={{ width: 120 }}
+          onChange={value => this.onDifficultyHandler(value)}
           value={difficulty}
         >
-          <option value="easy">easy</option>
-          <option value="medium">medium</option>
-          <option value="hard">hard</option>
-        </StyledSelect>
-      </Container>
+          <Option value="easy">Easy</Option>
+          <Option value="medium">Medium</Option>
+          <Option value="hard">Hard</Option>
+        </Select>
+      </React.Fragment>
     );
   }
 }
