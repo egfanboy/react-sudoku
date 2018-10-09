@@ -15,3 +15,9 @@ export const SecondRow = styled.div`
   color: ${({ theme }) => `${theme.inverted}`};
   display: flex;
 `;
+
+export const ThirdRow = styled.div`
+  color: ${({ theme }) => `${theme.inverted}`};
+  display: flex;
+  justify-content: space-around;
+`;

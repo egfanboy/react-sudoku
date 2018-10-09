@@ -8,16 +8,14 @@ export const Main = styled.div`
   border-radius: 10px;
   width: 460px;
   overflow: hidden;
-  color: ${({ theme }) => `${theme.numberColor}`}
-  box-shadow: ${({ theme }) => `0 0 10px 2px ${theme.primary}`};
-  zoom: 1.25;
+  color: ${({ theme }) => `${theme.inverted}`};
   z-index: 99;
 `;
 
 export const Background = styled.div`
   background-color: ${({ theme }) => `${theme.background}`};
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: absolute;
   margin: auto;
 `;

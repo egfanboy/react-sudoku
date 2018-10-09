@@ -31,6 +31,8 @@
     "object-curly-newline": "off",
     "react/destructuring-assignment": "off",
     "no-underscore-dangle": "off",
-    "no-console": "error"
+    "no-console": "error",
+    "radix": "off",
+    "no-unused-expressions": "off"
   }
 }

@@ -8,8 +8,7 @@ const StyledApp = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100%;
-  box-shadow: inset 0 0 10px #eee, inset 0 0 120px #eee, inset 0 0 40px #eee;
-  background-color: rgb(236, 236, 236);
+  background-color: ${theme => theme.background};
 `;
 
 export default StyledApp;

@@ -5,6 +5,7 @@ import { Screen } from './splash-screen';
 import StyledApp from './app.styled';
 import { Board } from './game';
 import { getTheme } from './themes';
+import 'antd/dist/antd.css';
 
 class App extends Component {
   state = {

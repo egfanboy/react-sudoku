@@ -16,20 +16,23 @@ class Timer extends React.Component {
     });
   };
 
-  formatTime(time = 0) {
+  formatTime = (time = 0) => {
+    const { difficulty } = this.props;
     let minutes = 0;
     let seconds = 0;
+
+    const upperCaseDifficulty = difficulty.replace(
+      /[a-z]/,
+      difficulty.charAt(0).toUpperCase()
+    );
+
     minutes = parseInt(time / 60);
     seconds = parseInt(time % 60);
-    return `${minutes}m${seconds}s`;
-  }
+    return `${upperCaseDifficulty}: ${minutes}M ${seconds}S`;
+  };
 
   render() {
-    return (
-      <StyledTimer>
-        Time Elapsed : {this.formatTime(this.state.timeElapsed)}
-      </StyledTimer>
-    );
+    return <StyledTimer>{this.formatTime(this.state.timeElapsed)}</StyledTimer>;
   }
 }
 
