@@ -4,7 +4,6 @@ import { Screen } from './splash-screen';
 import StyledApp from './app.styled';
 import { Board } from './game';
 
-
 class App extends Component {
   state = {
     username: sessionStorage.getItem('username') || null,
@@ -16,7 +15,7 @@ class App extends Component {
 
   handleClick = () => {
     this.setState({ username: null }, () => sessionStorage.clear());
-  }
+  };
 
   render() {
     const { username } = this.state;
@@ -27,7 +26,9 @@ class App extends Component {
         ) : (
           <Fragment>
             <Board />
-            <Button size="large" onClick={() => this.handleClick()}>Change level</Button>
+            <Button size="large" onClick={() => this.handleClick()}>
+              Change level
+            </Button>
           </Fragment>
         )}
       </StyledApp>
