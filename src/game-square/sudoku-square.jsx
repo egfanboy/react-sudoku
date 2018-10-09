@@ -16,6 +16,7 @@ class SudokuSquare extends React.Component {
 
   componentDidMount() {
     const { setValue, answer, boardIndex, initialValue } = this.props;
+
     setValue(boardIndex, {
       value: initialValue,
       answer,
@@ -23,7 +24,6 @@ class SudokuSquare extends React.Component {
     });
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
   isOriginal = () => this.state.originalValue !== null;
 
   isHighlighted = () => {

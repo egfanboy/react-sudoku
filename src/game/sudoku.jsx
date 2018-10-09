@@ -1,33 +1,66 @@
 import React, { Fragment } from 'react';
+
 import { ThemeProvider } from 'styled-components';
+import { easy, medium, hard } from 't-sudoku-generator';
+import { EventEmitter } from 'events';
+
 import { getTheme, ThemeSelector } from '../themes';
 import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
 import { Dialog } from '../dialog';
 
 import { Main, Background, Board } from './sudoku.styled';
+import { Timer } from '../timer';
+
+export const _events = new EventEmitter();
+
+_events.setMaxListeners(100);
+
+const BOARD_GETTERS = {
+  easy,
+  medium,
+  hard,
+};
+
+const defaultState = {
+  startDate: new Date(),
+  selectedBoardIndex: null,
+  values: {},
+  board: [],
+  done: false,
+  selectedRowIndex: null,
+  selectedIndex: null,
+  openDialog: false,
+  theme: getTheme(),
+  notes: {},
+  noteEnabled: false,
+  difficulty: 'easy',
+};
 
 class Sudoku extends React.Component {
-  state = {
-    startDate: new Date(),
-    selectedBoardIndex: null,
-    values: {},
-    board: null,
-    done: false,
-    selectedRowIndex: null,
-    selectedIndex: null,
-    openDialog: false,
-    theme: getTheme(),
-    notes: {},
-    noteEnabled: false,
-  };
+  state = defaultState;
 
   componentDidMount() {
     document.addEventListener('keyup', this.onKeypress);
+
+    _events.on('reset', difficulty => {
+      const { theme } = this.state;
+
+      this.setState({
+        ...defaultState,
+        theme,
+        startDate: new Date(),
+        board: BOARD_GETTERS[difficulty](),
+        difficulty,
+      });
+    });
+
+    _events.emit('reset', 'easy');
   }
 
   componentWillUnmount() {
     document.removeEventListener('keypress', this.onKeypress);
+    _events.removeAllListeners('reset');
   }
 
   onKeypress = e => {
@@ -139,7 +172,7 @@ class Sudoku extends React.Component {
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
-    const { board, notes } = this.state;
+    const { notes, difficulty } = this.state;
     const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -147,14 +180,13 @@ class Sudoku extends React.Component {
 
     return (
       <Square
-        key={(rowIndex + 1) * index + 10}
+        key={`${difficulty}-${(rowIndex + 1) * index + 10}`}
         value={value}
         initialValue={initialValue}
         answer={answer}
         rowIndex={rowIndex + 1}
         boardIndex={boardIndex}
         index={index + 1}
-        board={board}
         selectedIndex={selectedIndex}
         selectedRowIndex={selectedRowIndex}
         selectedBoardIndex={selectedBoardIndex}
@@ -168,7 +200,6 @@ class Sudoku extends React.Component {
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
 
   render() {
-    const { board } = this.props;
     const {
       openDialog,
       theme,
@@ -176,6 +207,7 @@ class Sudoku extends React.Component {
       noteEnabled,
       selectedBoardIndex,
       notes,
+      board,
     } = this.state;
 
     const gameTimeInSeconds = Math.round(
@@ -203,6 +235,7 @@ class Sudoku extends React.Component {
               noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
             }
           />
+          <Timer startTime={startDate.getTime()} />
         </Fragment>
       </ThemeProvider>
     );
