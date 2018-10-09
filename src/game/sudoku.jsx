@@ -6,14 +6,11 @@ import { EventEmitter } from 'events';
 import { ThemeSelector } from '../themes';
 import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
-import { Dialog } from '../dialog';
 
 import { Main, Background, Board } from './sudoku.styled';
 import { Timer } from '../timer';
 
 export const _events = new EventEmitter();
-
-_events.setMaxListeners(100);
 
 const BOARD_GETTERS = {
   easy,
@@ -22,7 +19,7 @@ const BOARD_GETTERS = {
 };
 
 const defaultState = {
-  startDate: new Date(),
+  startDate: Date.now(),
   selectedBoardIndex: null,
   values: {},
   board: [],
@@ -32,11 +29,12 @@ const defaultState = {
   openDialog: false,
   notes: {},
   noteEnabled: false,
-  difficulty: 'easy',
 };
 
 class Sudoku extends React.Component {
-  state = defaultState;
+  state = { ...defaultState, difficulty: this.props.difficulty };
+
+  static defaultProps = { difficulty: 'easy', onComplete: () => null };
 
   componentDidMount() {
     document.addEventListener('keyup', this.onKeypress);
@@ -44,29 +42,32 @@ class Sudoku extends React.Component {
     _events.on('reset', difficulty => {
       this.setState({
         ...defaultState,
-        startDate: new Date(),
+        startDate: Date.now(),
         board: BOARD_GETTERS[difficulty](),
         difficulty,
       });
     });
 
-    _events.emit('reset', 'easy');
+    _events.emit('reset', this.props.difficulty);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keypress', this.onKeypress);
+    document.removeEventListener('keyup', this.onKeypress);
     _events.removeAllListeners('reset');
+    _events.removeAllListeners('cycle-them');
   }
 
   onKeypress = e => {
     const charCode = typeof e.which === 'number' ? e.which : e.keyCode;
+
     const value = charCode - 48;
-    if (value >= 0 && value <= 9) {
-      this.handleButtonPress(value || null);
-    } else if (charCode === 27) {
-      // if keypress is the escape key, delete the value set
-      this.handleButtonPress(null);
-    }
+    if (value > 0 && value <= 9) this.handleButtonPress(value);
+
+    // if keypress is the escape or delete key, delete the value set
+    if (charCode === 27 || charCode === 8) this.handleButtonPress(null);
+
+    if (charCode === 39) _events.emit('cycle-theme', 'next');
+    if (charCode === 37) _events.emit('cycle-theme', 'prev');
   };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
@@ -86,11 +87,6 @@ class Sudoku extends React.Component {
       },
     });
     this.isDone();
-  };
-
-  setDialogState = () => {
-    const { openDialog } = this.state;
-    this.setState({ openDialog: !openDialog });
   };
 
   isDone = () => {
@@ -116,7 +112,7 @@ class Sudoku extends React.Component {
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
-    if (noteEnabled && value !== '✎') {
+    if (noteEnabled && value !== 'edit') {
       const existingNotes = value ? notes[selectedBoardIndex] || [] : [];
       this.setState({
         notes: {
@@ -131,7 +127,7 @@ class Sudoku extends React.Component {
           }),
         }),
       });
-    } else if (value === '✎') {
+    } else if (value === 'edit') {
       this.setState({
         noteEnabled: !noteEnabled,
       });
@@ -144,15 +140,15 @@ class Sudoku extends React.Component {
   };
 
   validate = () => {
-    const { values } = this.state;
-    const { done } = this.state;
+    const { done, values, startDate } = this.state;
+    const { onComplete } = this.props;
 
     let errors = false;
     Object.values(values).forEach(({ value, answer }) => {
       if (value !== answer) errors = true;
     });
 
-    if (done && !errors) this.setDialogState();
+    if (done && !errors) onComplete(Date.now() - startDate);
   };
 
   getValue = boardIndex => {
@@ -192,41 +188,30 @@ class Sudoku extends React.Component {
 
   render() {
     const {
-      openDialog,
       startDate,
       noteEnabled,
       selectedBoardIndex,
       notes,
       board,
+      difficulty,
     } = this.state;
 
     const { changeTheme } = this.props;
-
-    const gameTimeInSeconds = Math.round(
-      (Date.now() - startDate.getTime()) / 1000
-    );
 
     return (
       <Fragment>
         <Background />
         <Main>
           <ThemeSelector onChange={changeTheme} />
+          <Timer startTime={startDate} difficulty={difficulty} />
           {board.map(this.buildBoard)}
-          <Dialog
-            isOpen={openDialog}
-            stateManager={this.setDialogState}
-            header="Congratz"
-            message="You did it 👏"
-            completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
-          />
         </Main>
         <ButtonBar
           onClick={this.handleButtonPress}
           enabledButtons={
-            noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
+            noteEnabled ? ['edit', ...(notes[selectedBoardIndex] || [])] : []
           }
         />
-        <Timer startTime={startDate.getTime()} />
       </Fragment>
     );
   }

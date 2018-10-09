@@ -5,14 +5,10 @@ const Select = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 75%;
+  align-self: center;
   height: 40px;
-  color: ${({ theme }) => `${theme.secondary}`};
-  background: ${({ theme }) => `${theme.primary}`};
-
-  span {
-    color: ${({ theme }) => `${theme.secondary}`};
-  }
+  color: ${({ theme }) => `${theme.primary}`};
 
   button {
     display: flex;
@@ -24,7 +20,7 @@ const Select = styled.div`
     cursor: pointer;
 
     i:hover {
-      color: ${({ theme }) => `${theme.secondary}`};
+      color: ${({ theme }) => `${theme.primary}`};
     }
   }
 `;

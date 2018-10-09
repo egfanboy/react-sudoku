@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, Card } from 'antd';
 import { Difficulty } from '../difficulty';
-import 'antd/dist/antd.css';
 
 export default class Screen extends Component {
   state = {

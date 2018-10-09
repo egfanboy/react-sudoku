@@ -14,9 +14,9 @@ export const Value = styled.div`
   height: 100%;
   display: flex;
   color: ${({ isOriginal, theme }) =>
-    isOriginal ? theme.primary : theme.secondary};
+    isOriginal ? theme.original : theme.primary};
   justify-content: center;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
   font-size: 25px;
   align-items: center;

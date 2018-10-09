@@ -2,6 +2,7 @@ import React from 'react';
 import themes from './themes';
 import { Icon } from '../icon';
 import Select from './index.styled';
+import { _events } from '../game/sudoku';
 
 export const getTheme = themeName => themes[themeName] || themes.lightOrange;
 
@@ -13,6 +14,12 @@ export class ThemeSelector extends React.Component {
     name: themes.lightOrange.name,
     appThemes: themesArr,
   };
+
+  componentDidMount() {
+    _events.on('cycle-theme', action => {
+      action && this.handleClick(action);
+    });
+  }
 
   handleClick = payload => {
     const { onChange } = this.props;

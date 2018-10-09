@@ -1,10 +1,10 @@
 import React from 'react';
 
-import StyledButton from './button.styled';
 import { Icon } from '../icon';
+import StyledButton from './button.styled';
 
-export default ({ onClick, value, theme, enabled }) => (
-  <StyledButton theme={theme} onClick={() => onClick(value)} enabled={enabled}>
-    {value || <Icon name="clear" size="20" theme={theme} />}
+export default ({ onClick, value, enabled, children }) => (
+  <StyledButton onClick={() => onClick(value)} enabled={enabled}>
+    {children || value || <Icon name="clear" size="20" />}
   </StyledButton>
 );

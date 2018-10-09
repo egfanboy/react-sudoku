@@ -6,13 +6,13 @@ const Main = styled.div`
   height: 50px;
   border-right: ${({ isThickRight, isLastColumn, theme }) =>
     isThickRight
-      ? `solid 2px ${theme.board}`
+      ? `solid 4px ${theme.board}`
       : isLastColumn
         ? ''
         : `solid 1px ${theme.board}`};
   border-bottom: ${({ isThickBottom, isLastRow, theme }) =>
     isThickBottom
-      ? `solid 2px ${theme.board}`
+      ? `solid 4px ${theme.board}`
       : isLastRow
         ? ''
         : `solid 1px ${theme.board}`};

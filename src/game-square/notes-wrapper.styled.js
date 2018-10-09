@@ -14,9 +14,9 @@ export const Main = styled.div`
 
 export const Value = styled.span`
   transition: all 0.5s;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
   font-size: 15px;
   color: ${({ isOriginal, theme }) =>
-    isOriginal ? theme.primary : theme.secondary};
+    isOriginal ? theme.original : theme.secondary};
 `;
