@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react';
 
-import { ThemeProvider } from 'styled-components';
 import { easy, medium, hard } from 't-sudoku-generator';
 import { EventEmitter } from 'events';
 
-import { getTheme, ThemeSelector } from '../themes';
+import { ThemeSelector } from '../themes';
 import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
 import { Dialog } from '../dialog';
@@ -31,7 +30,6 @@ const defaultState = {
   selectedRowIndex: null,
   selectedIndex: null,
   openDialog: false,
-  theme: getTheme(),
   notes: {},
   noteEnabled: false,
   difficulty: 'easy',
@@ -44,11 +42,8 @@ class Sudoku extends React.Component {
     document.addEventListener('keyup', this.onKeypress);
 
     _events.on('reset', difficulty => {
-      const { theme } = this.state;
-
       this.setState({
         ...defaultState,
-        theme,
         startDate: new Date(),
         board: BOARD_GETTERS[difficulty](),
         difficulty,
@@ -72,10 +67,6 @@ class Sudoku extends React.Component {
       // if keypress is the escape key, delete the value set
       this.handleButtonPress(null);
     }
-  };
-
-  changeTheme = name => {
-    this.setState({ theme: getTheme(name) });
   };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
@@ -202,7 +193,6 @@ class Sudoku extends React.Component {
   render() {
     const {
       openDialog,
-      theme,
       startDate,
       noteEnabled,
       selectedBoardIndex,
@@ -210,34 +200,34 @@ class Sudoku extends React.Component {
       board,
     } = this.state;
 
+    const { changeTheme } = this.props;
+
     const gameTimeInSeconds = Math.round(
       (Date.now() - startDate.getTime()) / 1000
     );
 
     return (
-      <ThemeProvider theme={theme}>
-        <Fragment>
-          <Background />
-          <Main>
-            <ThemeSelector onChange={this.changeTheme} />
-            {board.map(this.buildBoard)}
-            <Dialog
-              isOpen={openDialog}
-              stateManager={this.setDialogState}
-              header="Congratz"
-              message="You did it 👏"
-              completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
-            />
-          </Main>
-          <ButtonBar
-            onClick={this.handleButtonPress}
-            enabledButtons={
-              noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
-            }
+      <Fragment>
+        <Background />
+        <Main>
+          <ThemeSelector onChange={changeTheme} />
+          {board.map(this.buildBoard)}
+          <Dialog
+            isOpen={openDialog}
+            stateManager={this.setDialogState}
+            header="Congratz"
+            message="You did it 👏"
+            completionTimeMessage={`It took you ${gameTimeInSeconds} seconds!`}
           />
-          <Timer startTime={startDate.getTime()} />
-        </Fragment>
-      </ThemeProvider>
+        </Main>
+        <ButtonBar
+          onClick={this.handleButtonPress}
+          enabledButtons={
+            noteEnabled ? ['✎', ...(notes[selectedBoardIndex] || [])] : []
+          }
+        />
+        <Timer startTime={startDate.getTime()} />
+      </Fragment>
     );
   }
 }
