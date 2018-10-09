@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 
 export default class Screen extends Component {
   state = {
-    name: null
+    name: null,
   };
 
   handleClick = () => {
@@ -15,24 +15,30 @@ export default class Screen extends Component {
     if (typeof notify === 'function') {
       notify(name);
     }
-  }
+  };
 
   render() {
     const { name } = this.state;
     return (
       <div>
-        <Card title="Welcome to React Soduku" bordered={false} style={{ width: 300 }}>
+        <Card
+          title="Welcome to React Soduku"
+          bordered={false}
+          style={{ width: 300 }}
+        >
           <Input
-           placeholder="Name"
-           onChange={e => (this.setState({ name: e.target.value }))}
-           value={name}
+            placeholder="Name"
+            onChange={e => this.setState({ name: e.target.value })}
+            value={name}
           />
           <br />
           <br />
           <Difficulty />
           <br />
           <br />
-          <Button type="primary" onClick={() => this.handleClick()}>Start The Game</Button>
+          <Button type="primary" onClick={() => this.handleClick()}>
+            Start The Game
+          </Button>
         </Card>
       </div>
     );
