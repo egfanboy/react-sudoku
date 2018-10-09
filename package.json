@@ -17,7 +17,9 @@
     "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "development": [
@@ -40,6 +42,14 @@
     "eslint-plugin-react": "^7.11.0",
     "husky": "^1.1.1",
     "prettier": "^1.14.3",
-    "pretty-quick": "^1.7.0"
+    "pretty-quick": "^1.7.0",
+    "@storybook/react": "4.0.0-alpha.24",
+    "@storybook/addon-actions": "4.0.0-alpha.24",
+    "@storybook/addon-backgrounds": "4.0.0-alpha.24",
+    "@storybook/addon-links": "4.0.0-alpha.24",
+    "@storybook/addon-viewport": "4.0.0-alpha.24",
+    "@storybook/addons": "4.0.0-alpha.24",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0"
   }
 }
