@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Select } from 'antd';
+import { _events } from '../game/sudoku';
 
 const { Option } = Select;
 
