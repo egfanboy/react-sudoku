@@ -1,9 +1,10 @@
 import React from 'react';
+
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+
 import themes from './themes';
-import { Icon } from '../icon';
 import Select from './index.styled';
 import { _events } from '../game/sudoku';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 export const getTheme = themeName => themes[themeName] || themes.lightOrange;
 
