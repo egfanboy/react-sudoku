@@ -29,6 +29,8 @@ const defaultState = {
   openDialog: false,
   notes: {},
   noteEnabled: false,
+  history: [],
+  moveCount: 0,
 };
 
 class Sudoku extends React.Component {
@@ -54,7 +56,12 @@ class Sudoku extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keyup', this.onKeypress);
     _events.removeAllListeners('reset');
-    _events.removeAllListeners('cycle-them');
+    _events.removeAllListeners('cycle-theme');
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.difficulty !== this.props.difficulty)
+      _events.emit('reset', this.props.difficulty);
   }
 
   onKeypress = e => {
@@ -106,12 +113,24 @@ class Sudoku extends React.Component {
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
   handleButtonPress = value => {
-    const { selectedBoardIndex, values, notes, noteEnabled } = this.state;
+    const {
+      selectedBoardIndex,
+      values,
+      notes,
+      noteEnabled,
+      history,
+      moveCount,
+    } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
+    if (!noteEnabled && value !== 'edit')
+      this.setState({
+        history: [{ boardIndex: selectedBoardIndex, value }, ...history],
+        moveCount: moveCount + 1,
+      });
     if (noteEnabled && value !== 'edit') {
       const existingNotes = value ? notes[selectedBoardIndex] || [] : [];
       this.setState({
