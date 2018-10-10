@@ -5,6 +5,7 @@ const StyledTimer = styled.div`
   color: ${({ theme }) => `${theme.primary}`};
   position: relative;
   align-self: center;
+  font-family: 'Montserrat', sans-serif;
 `;
 
 export default StyledTimer;

@@ -1,6 +1,10 @@
 import React, { Fragment, Component } from 'react';
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, injectGlobal } from 'styled-components';
+
+injectGlobal`
+ @import url('https://fonts.googleapis.com/css?family=Montserrat|Titillium+Web');
+`;
 
 import StyledApp from './app.styled';
 import { Board } from './game';
