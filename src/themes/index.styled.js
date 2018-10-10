@@ -10,6 +10,10 @@ const Select = styled.div`
   height: 40px;
   color: ${({ theme }) => `${theme.primary}`};
 
+  span {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   button {
     display: flex;
     color: ${({ theme }) => `${theme.secondary}`};
