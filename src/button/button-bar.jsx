@@ -1,12 +1,17 @@
 import React from 'react';
-import Button from './button';
-import { Icon } from '../icon';
 
+import { MdEdit } from 'react-icons/md';
+
+import Button from './button';
 import { Main, FirstRow, SecondRow, ThirdRow } from './button-bar.styled';
 
 const firstButtons = [1, 2, 3, 4, 5];
 const secondButtons = [6, 7, 8, 9, null];
 const iconButtons = ['edit'];
+
+const ICONS = {
+  edit: MdEdit,
+};
 
 class ButtonBar extends React.Component {
   buildButton = value => {
@@ -24,7 +29,7 @@ class ButtonBar extends React.Component {
 
   buildIconButton = iconName => {
     const { onClick, enabledButtons } = this.props;
-
+    const Icon = ICONS[iconName];
     return (
       <Button
         key={iconName}
@@ -32,7 +37,7 @@ class ButtonBar extends React.Component {
         value={iconName}
         enabled={enabledButtons.includes(iconName)}
       >
-        <Icon name={iconName} size="20" />
+        <Icon size="0.75em" />
       </Button>
     );
   };

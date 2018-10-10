@@ -3,6 +3,7 @@ import themes from './themes';
 import { Icon } from '../icon';
 import Select from './index.styled';
 import { _events } from '../game/sudoku';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 export const getTheme = themeName => themes[themeName] || themes.lightOrange;
 
@@ -43,16 +44,16 @@ export class ThemeSelector extends React.Component {
   };
 
   render() {
-    const { name, value } = this.state;
+    const { name } = this.state;
 
     return (
       <Select>
         <button type="button" onClick={() => this.handleClick('prev')}>
-          <Icon name="chevron_left" size="24" />
+          <MdChevronLeft size="2em" />
         </button>
         <span>{name}</span>
         <button type="button" onClick={() => this.handleClick('next')}>
-          <Icon name="chevron_right" size="24" theme={themes[value]} />
+          <MdChevronRight size="2em" />
         </button>
       </Select>
     );
