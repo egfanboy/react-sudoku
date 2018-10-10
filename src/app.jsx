@@ -1,24 +1,14 @@
 import React, { Fragment, Component } from 'react';
-import { Button } from 'antd';
+
 import { ThemeProvider } from 'styled-components';
-import { Screen } from './splash-screen';
+
 import StyledApp from './app.styled';
 import { Board } from './game';
 import { getTheme } from './themes';
-import 'antd/dist/antd.css';
 
 class App extends Component {
   state = {
-    username: sessionStorage.getItem('username') || null,
     theme: getTheme(),
-  };
-
-  changeScreen = name => {
-    this.setState({ username: name });
-  };
-
-  handleClick = () => {
-    this.setState({ username: null }, () => sessionStorage.clear());
   };
 
   handleChangeTheme = name => {
@@ -26,23 +16,21 @@ class App extends Component {
   };
 
   render() {
-    const { username, theme } = this.state;
+    const { theme } = this.state;
+    const { onComplete, difficulty } = this.props;
     return (
       <StyledApp>
-        {!username ? (
-          <Screen notify={name => this.changeScreen(name)} />
-        ) : (
-          <ThemeProvider theme={theme}>
-            <StyledApp>
-              <Fragment>
-                <Board changeTheme={this.handleChangeTheme} />
-                <Button size="large" onClick={() => this.handleClick()}>
-                  Change level
-                </Button>
-              </Fragment>
-            </StyledApp>
-          </ThemeProvider>
-        )}
+        <ThemeProvider theme={theme}>
+          <StyledApp>
+            <Fragment>
+              <Board
+                changeTheme={this.handleChangeTheme}
+                onComplete={onComplete}
+                difficulty={difficulty}
+              />
+            </Fragment>
+          </StyledApp>
+        </ThemeProvider>
       </StyledApp>
     );
   }

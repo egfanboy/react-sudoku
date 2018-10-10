@@ -1,11 +1,7 @@
-import { configure, addDecorator } from '@storybook/react';
-
-function requireAll(requireContext) {
-  return requireContext.keys().map(requireContext);
-}
+import { configure } from '@storybook/react';
 
 function loadStories() {
-  requireAll(require.context('../src', true, /\.(story|stories)\.js?$/));
+  require('./stories.js');
 }
 
 configure(loadStories, module);

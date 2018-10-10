@@ -12,14 +12,13 @@ const Select = styled.div`
 
   button {
     display: flex;
-    height: 100%;
-    color: #fff;
+    color: ${({ theme }) => `${theme.secondary}`};
     background-color: transparent;
     border: 0;
     outline: 0;
     cursor: pointer;
 
-    i:hover {
+    &:hover {
       color: ${({ theme }) => `${theme.primary}`};
     }
   }
