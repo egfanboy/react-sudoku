@@ -1,5 +1,5 @@
 {
-  "name": "react-sudoku",
+  "name": "t-react-sudoku",
   "version": "1.0.0",
   "main": "build/bundle.js",
   "description": "Sudoku game board",
