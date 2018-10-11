@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { easy, medium, hard } from 't-sudoku-generator';
 import { EventEmitter } from 'events';
@@ -36,9 +37,14 @@ const defaultState = {
 };
 
 class Sudoku extends React.Component {
-  state = { ...defaultState, difficulty: this.props.difficulty };
-
+  static propTypes = {
+    changeTheme: PropTypes.func.isRequired,
+    difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']),
+    onComplete: PropTypes.func,
+  };
   static defaultProps = { difficulty: 'easy', onComplete: () => null };
+
+  state = { ...defaultState, difficulty: this.props.difficulty };
 
   componentDidMount() {
     document.addEventListener('keyup', this.onKeypress);
