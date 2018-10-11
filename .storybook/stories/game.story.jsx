@@ -28,4 +28,4 @@ class Game extends React.Component {
   }
 }
 
-storiesOf('Button Bar', module).add('default', () => <Game />);
+storiesOf('Game', module).add('default', () => <Game />);
