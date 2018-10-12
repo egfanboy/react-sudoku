@@ -131,10 +131,12 @@ class Sudoku extends React.Component {
     } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
-    const actionValues = ['edit', 'undo', 'reset'];
+    const actionValues = ['notes', 'undo', 'reset', 'validate'];
 
     if (value === 'undo') this.undoLastMove();
     if (value === 'reset') this.toggleReset();
+    if (value === 'validate') this.validateCurrentBoard();
+
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
@@ -158,28 +160,38 @@ class Sudoku extends React.Component {
           }),
         }),
       });
-    } else if (value === 'edit') {
+    } else if (value === 'notes') {
       this.setState({
         noteEnabled: !noteEnabled,
       });
     } else if (!actionValues.includes(value)) {
+      const { error, answer } = selectedBoardIndexValue;
+
       this.setValue(
         selectedBoardIndex,
-        Object.assign(selectedBoardIndexValue, { value })
+        Object.assign(selectedBoardIndexValue, {
+          value,
+          error: error && answer !== value,
+        })
       );
     }
   };
 
   validate = () => {
-    const { done, values, startDate } = this.state;
-    const { onComplete } = this.props;
+    const { done, values, startDate, moveCount } = this.state;
+    const { onComplete, difficulty } = this.props;
 
     let errors = false;
     Object.values(values).forEach(({ value, answer }) => {
       if (value !== answer) errors = true;
     });
 
-    if (done && !errors) onComplete(Date.now() - startDate);
+    if (done && !errors)
+      onComplete({
+        completionTime: Date.now() - startDate,
+        difficulty,
+        moves: moveCount,
+      });
   };
 
   getValue = boardIndex => {
@@ -190,7 +202,7 @@ class Sudoku extends React.Component {
   };
 
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
-    const { notes, difficulty } = this.state;
+    const { notes, difficulty, values } = this.state;
     const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
 
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
@@ -200,6 +212,7 @@ class Sudoku extends React.Component {
       <Square
         key={`${difficulty}-${(rowIndex + 1) * index + 10}`}
         value={value}
+        hasError={(values[boardIndex] || {}).error}
         initialValue={initialValue}
         answer={answer}
         rowIndex={rowIndex + 1}
@@ -260,6 +273,30 @@ class Sudoku extends React.Component {
     );
   };
 
+  validateCurrentBoard = () => {
+    const { values } = this.state;
+
+    const validatedValues = Object.keys(values).reduce((acc, key) => {
+      const value = values[key];
+      if (
+        !value.isOriginal &&
+        value.value !== null &&
+        value.answer !== value.value
+      )
+        acc[key] = { ...value, error: true };
+      else if (value.error && value.answer === value.value)
+        acc[key] = { ...value, error: false };
+      else acc[key] = value;
+
+      return acc;
+    }, {});
+
+    this.setState({
+      values: validatedValues,
+      moveCount: this.state.moveCount + 1,
+    });
+  };
+
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
 
   render() {
@@ -289,7 +326,7 @@ class Sudoku extends React.Component {
         <ButtonBar
           onClick={this.handleButtonPress}
           enabledButtons={
-            noteEnabled ? ['edit', ...(notes[selectedBoardIndex] || [])] : []
+            noteEnabled ? ['notes', ...(notes[selectedBoardIndex] || [])] : []
           }
         />
       </Fragment>

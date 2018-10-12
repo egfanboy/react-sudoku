@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MdEdit, MdUndo, MdReplay } from 'react-icons/md';
+import { MdEdit, MdUndo, MdReplay, MdDone } from 'react-icons/md';
 
 import Button from './button';
 import { Main, FirstRow, SecondRow, ThirdRow } from './button-bar.styled';
 
 const firstButtons = [1, 2, 3, 4, 5];
 const secondButtons = [6, 7, 8, 9, null];
-const iconButtons = ['reset', 'undo', 'edit'];
+const iconButtons = ['reset', 'undo', 'validate', 'notes'];
 
 const ICONS = {
-  edit: MdEdit,
+  notes: MdEdit,
   undo: MdUndo,
   reset: MdReplay,
+  validate: MdDone,
 };
 
 class ButtonBar extends React.Component {
@@ -40,12 +41,13 @@ class ButtonBar extends React.Component {
     const Icon = ICONS[iconName];
     return (
       <Button
+        title={iconName}
         key={iconName}
         onClick={onClick}
         value={iconName}
         enabled={enabledButtons.includes(iconName)}
       >
-        <Icon size="0.75em" />
+        <Icon title={iconName} size="0.75em" />
       </Button>
     );
   };

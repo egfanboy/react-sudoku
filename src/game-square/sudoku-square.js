@@ -59,6 +59,7 @@ class SudokuSquare extends React.Component {
       initialValue,
       theme,
       notes,
+      hasError,
     } = this.props;
 
     return (
@@ -83,6 +84,7 @@ class SudokuSquare extends React.Component {
         ) : (
           <ValueWrapper
             theme={theme}
+            hasError={hasError}
             isOriginal={this.isOriginal() ? 1 : 0}
             isHighlighted={this.isHighlighted() ? 1 : 0}
             isSelectedBoardIndex={selectedBoardIndex === boardIndex ? 1 : 0}

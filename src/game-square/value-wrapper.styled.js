@@ -13,8 +13,8 @@ export const Value = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  color: ${({ isOriginal, theme }) =>
-    isOriginal ? theme.original : theme.primary};
+  color: ${({ isOriginal, theme, hasError }) =>
+    isOriginal ? theme.original : hasError ? 'red' : theme.primary};
   justify-content: center;
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;

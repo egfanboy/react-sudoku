@@ -6,6 +6,7 @@ import StyledButton from './button.styled';
 
 const Button = ({ onClick, value, enabled, children, className }) => (
   <StyledButton
+    title={title}
     className={className}
     onClick={() => onClick(value)}
     enabled={enabled}
@@ -20,6 +21,7 @@ Button.propTypes = {
   value: PropTypes.node,
   children: PropTypes.node,
   className: PropTypes.string,
+  title: PropTypes.string,
 };
 Button.defaultProps = {
   enabled: true,
