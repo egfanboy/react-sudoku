@@ -9,6 +9,7 @@ import ButtonBar from '../button/button-bar';
 
 import { Main, Background, Board } from './sudoku.styled';
 import { Timer } from '../timer';
+import { Reset } from '../reset';
 
 export const _events = new EventEmitter();
 
@@ -31,6 +32,7 @@ const defaultState = {
   noteEnabled: false,
   history: [],
   moveCount: 0,
+  showReset: false,
 };
 
 class Sudoku extends React.Component {
@@ -123,15 +125,19 @@ class Sudoku extends React.Component {
     } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
+    const actionValues = ['edit', 'undo', 'reset'];
+
+    if (value === 'undo') this.undoLastMove();
+    if (value === 'reset') this.toggleReset();
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
-    if (!noteEnabled && value !== 'edit')
+    if (!noteEnabled && !actionValues.includes(value))
       this.setState({
         history: [{ boardIndex: selectedBoardIndex, value }, ...history],
         moveCount: moveCount + 1,
       });
-    if (noteEnabled && value !== 'edit') {
+    if (noteEnabled && !actionValues.includes(value)) {
       const existingNotes = value ? notes[selectedBoardIndex] || [] : [];
       this.setState({
         notes: {
@@ -150,7 +156,7 @@ class Sudoku extends React.Component {
       this.setState({
         noteEnabled: !noteEnabled,
       });
-    } else {
+    } else if (!actionValues.includes(value)) {
       this.setValue(
         selectedBoardIndex,
         Object.assign(selectedBoardIndexValue, { value })
@@ -203,6 +209,51 @@ class Sudoku extends React.Component {
     );
   };
 
+  undoLastMove = () => {
+    const { history } = this.state;
+    if (!history.length) return;
+    const moveToUndo = history.shift();
+
+    const { value: newValue } =
+      history.find(({ boardIndex }) => boardIndex === moveToUndo.boardIndex) ||
+      {};
+
+    this.setState(({ values, moveCount }) => {
+      values[moveToUndo.boardIndex] = {
+        ...values[moveToUndo.boardIndex],
+        value: newValue || null,
+      };
+      moveCount++;
+
+      return { values, moveCount };
+    });
+  };
+
+  toggleReset = () => this.setState({ showReset: !this.state.showReset });
+
+  resetBoard = () => {
+    const { history, values, moveCount } = this.state;
+
+    if (!history.length) return this.toggleReset();
+
+    const indexesToNull = [
+      ...new Set(history.map(({ boardIndex }) => boardIndex.toString())),
+    ];
+
+    const newValues = Object.keys(values).reduce((acc, key) => {
+      if (indexesToNull.includes(key))
+        acc[key] = { ...values[key], value: null };
+      else acc[key] = values[key];
+
+      return acc;
+    }, {});
+
+    this.setState(
+      { values: newValues, moveCount: moveCount + 1, history: [] },
+      () => this.toggleReset()
+    );
+  };
+
   buildBoard = (x, i) => <Board key={i}>{x.map(this.buildRow(i))}</Board>;
 
   render() {
@@ -213,6 +264,7 @@ class Sudoku extends React.Component {
       notes,
       board,
       difficulty,
+      showReset,
     } = this.state;
 
     const { changeTheme } = this.props;
@@ -220,6 +272,9 @@ class Sudoku extends React.Component {
     return (
       <Fragment>
         <Background />
+        {showReset && (
+          <Reset onAction={this.resetBoard} onCancel={this.toggleReset} />
+        )}
         <Main>
           <ThemeSelector onChange={changeTheme} />
           <Timer startTime={startDate} difficulty={difficulty} />

@@ -20,7 +20,7 @@ storiesOf('List', module).add('default', () => (
         { boardIndex: 74, value: 8 },
         { boardIndex: 76, value: 1 },
         { boardIndex: 59, value: 3 },
-      ]}
+      ].map((item, index) => ({ ...item, index }))}
     />
   </ThemeWrapper>
 ));
