@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { List } from '../list';
 import { Button } from '../button';
 
 export const Main = styled.div`
