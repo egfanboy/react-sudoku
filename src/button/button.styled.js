@@ -13,7 +13,7 @@ const StyledButton = styled.div`
   width: 40px;
   background-color: ${({ enabled, theme }) => enabled && theme.primary};
   color: ${({ theme }) => `1px solid ${theme.secondary}`};
-  border: ${({ theme }) => `1px solid ${theme.primary}`};
+  border: ${({ theme }) => `2px solid ${theme.primary}`};
   border-radius: 50%;
   margin: 5px;
   &:hover {

@@ -5,7 +5,7 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => `${theme.background}`};
-  border-radius: 10px;
+
   width: 460px;
   overflow: hidden;
   color: ${({ theme }) => `${theme.inverted}`};
