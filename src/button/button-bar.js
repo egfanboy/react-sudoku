@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { MdEdit, MdUndo, MdReplay } from 'react-icons/md';
 
@@ -16,6 +17,11 @@ const ICONS = {
 };
 
 class ButtonBar extends React.Component {
+  static propTypes = {
+    enabledButtons: PropTypes.array.isRequired,
+    onClick: PropTypes.func.isRequired,
+  };
+
   buildButton = value => {
     const { onClick, enabledButtons } = this.props;
 
