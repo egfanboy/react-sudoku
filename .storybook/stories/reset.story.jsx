@@ -8,6 +8,6 @@ import { Reset } from '../../src/reset';
 
 storiesOf('Reset', module).add('default', () => (
   <ThemeWrapper>
-    <Reset />
+    <Reset onAction={() => null} onClose={() => null} />
   </ThemeWrapper>
 ));
