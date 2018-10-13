@@ -279,7 +279,7 @@ class Sudoku extends React.Component {
       <Fragment>
         <Background />
         {showReset && (
-          <Reset onAction={this.resetBoard} onCancel={this.toggleReset} />
+          <Reset onAction={this.resetBoard} onClose={this.toggleReset} />
         )}
         <Main>
           <ThemeSelector onChange={changeTheme} />

@@ -11,10 +11,9 @@ import {
 
 export default class Reset extends React.Component {
   static propTypes = {
-    onAction: PropTypes.func,
-    onClose: PropTypes.func,
+    onAction: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
   };
-  static defaultProps = { onAction: () => null, onClose: () => null };
 
   render() {
     const { onAction, onClose } = this.props;

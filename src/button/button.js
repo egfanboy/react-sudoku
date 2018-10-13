@@ -15,11 +15,14 @@ const Button = ({ onClick, value, enabled, children, className }) => (
 );
 
 Button.propTypes = {
-  enabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  enabled: PropTypes.bool,
   value: PropTypes.node,
   children: PropTypes.node,
   className: PropTypes.string,
+};
+Button.defaultProps = {
+  enabled: true,
 };
 
 export default Button;
