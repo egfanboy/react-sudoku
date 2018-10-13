@@ -1,7 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import StyledTimer from './timer.styled';
 
 class Timer extends React.Component {
+  static propTypes = {
+    startTime: PropTypes.number.isRequired,
+    difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']).isRequired,
+  };
+
   state = {
     timeElapsed: 0,
   };

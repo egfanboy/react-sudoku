@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
@@ -11,6 +12,10 @@ export const getTheme = themeName => themes[themeName] || themes.lightOrange;
 const themesArr = Object.keys(themes);
 
 export class ThemeSelector extends React.Component {
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+  };
+
   state = {
     value: 'lightOrange',
     name: themes.lightOrange.name,
