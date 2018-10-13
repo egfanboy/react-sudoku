@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Main,
@@ -9,7 +10,11 @@ import {
 } from './reset.styled';
 
 export default class Reset extends React.Component {
-  static defaultProps = { onClose: () => null, onAction: () => null };
+  static propTypes = {
+    onAction: PropTypes.func,
+    onClose: PropTypes.func,
+  };
+  static defaultProps = { onAction: () => null, onClose: () => null };
 
   render() {
     const { onAction, onClose } = this.props;
