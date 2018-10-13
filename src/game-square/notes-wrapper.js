@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Main, Value } from './notes-wrapper.styled';
 
 const NotesWrapper = ({ values }) => (
@@ -8,5 +10,9 @@ const NotesWrapper = ({ values }) => (
     ))}
   </Main>
 );
+
+NotesWrapper.propTypes = {
+  values: PropTypes.array.isRequired,
+};
 
 export default NotesWrapper;

@@ -1,9 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Main from './sudoku-square.styled';
 import ValueWrapper from './value-wrapper';
 import NotesWrapper from './notes-wrapper';
 
 class SudokuSquare extends React.Component {
+  static propTypes = {
+    setSelectedBoardIndexes: PropTypes.func.isRequired,
+    setValue: PropTypes.func.isRequired,
+    notes: PropTypes.array.isRequired,
+    value: PropTypes.number,
+    initialValue: PropTypes.number,
+    answer: PropTypes.number,
+    rowIndex: PropTypes.number,
+    boardIndex: PropTypes.number,
+    index: PropTypes.number,
+    selectedIndex: PropTypes.number,
+    selectedRowIndex: PropTypes.number,
+    selectedBoardIndex: PropTypes.number,
+  };
+
   state = {
     originalValue: null,
   };
