@@ -7,7 +7,7 @@ import StyledButton from './button.styled';
 const Button = ({ onClick, value, enabled, children, className }) => (
   <StyledButton
     className={className}
-    onClick={() => onClick(value)}
+    onClick={e => onClick(value, e)}
     enabled={enabled}
   >
     {children || value || <MdClear size="0.75em" />}

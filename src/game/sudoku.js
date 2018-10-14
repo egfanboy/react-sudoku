@@ -120,7 +120,7 @@ class Sudoku extends React.Component {
 
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
-  handleButtonPress = value => {
+  handleButtonPress = (value, e) => {
     const {
       selectedBoardIndex,
       values,
@@ -131,10 +131,11 @@ class Sudoku extends React.Component {
     } = this.state;
     const selectedBoardIndexValue = values[selectedBoardIndex];
 
-    const actionValues = ['edit', 'undo', 'reset'];
+    const actionValues = ['edit', 'undo', 'reset', 'validate'];
 
     if (value === 'undo') this.undoLastMove();
     if (value === 'reset') this.toggleReset();
+    if (value === 'validate') this.validateSelected(e);
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
 
@@ -213,6 +214,22 @@ class Sudoku extends React.Component {
         notes={notes[boardIndex] || []}
       />
     );
+  };
+
+  validateSelected = e => {
+    const { selectedBoardIndex, values, moveCount } = this.state;
+    if (selectedBoardIndex === null) return;
+    const value = values[selectedBoardIndex];
+    if (value.value === null) return;
+    const valid = value.value === value.answer;
+
+    const className = `validation-${valid ? 'success' : 'error'}`;
+    const buttonClassList = e.target.classList;
+    buttonClassList.remove('validation-success');
+    buttonClassList.remove('validation-error');
+    setTimeout(() => buttonClassList.add(className), 0);
+
+    this.setState({ moveCount: moveCount + 1 });
   };
 
   undoLastMove = () => {
