@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { MdClear } from 'react-icons/md';
 import StyledButton from './button.styled';
 
-const Button = ({ onClick, value, enabled, children, className }) => (
+const Button = ({ onClick, value, enabled, children, className, title }) => (
   <StyledButton
     title={title}
     className={className}
