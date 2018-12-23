@@ -2180,11 +2180,6 @@ component-emitter@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
   integrity sha1-E3kY1teCg/ffemt8WmPhQOaUJeY=
 
-compute-scroll-into-view@^1.0.9:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-1.0.11.tgz#7ff0a57f9aeda6314132d8994cce7aeca794fecf"
-  integrity sha512-uUnglJowSe0IPmWOdDtrlHXof5CTIJitfJEyITHBW6zDVOGu9Pjk5puaLM73SLcwak0L4hEjO7Td88/a6P5i7A==
-
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -2620,14 +2615,6 @@ dotenv@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.1.0.tgz#9853b6ca98292acb7dec67a95018fa40bccff42c"
   integrity sha512-/veDn2ztgRlB7gKmE3i9f6CmDIyXAy6d5nBq+whO9SLX+Zs1sXEgFLPi+aSuWqUuusMfbi84fT8j34fs1HaYUw==
-
-downshift@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.0.0.tgz#a18b5654a2fa65831b7db3a7f0a4260a06c650b8"
-  integrity sha512-IsHnOgrdy6gXq/oegkdM8w6MA2hVSTydMkjGdf+LplCzwCvB883FFUR+g5lgg696Stdt4HQB/+tw2sgaVX6u3Q==
-  dependencies:
-    compute-scroll-into-view "^1.0.9"
-    prop-types "^15.6.0"
 
 duplexer@^0.1.1:
   version "0.1.1"
