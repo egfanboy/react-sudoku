@@ -8,15 +8,19 @@ injectGlobal`
 
 import StyledApp from './app.styled';
 import { Board } from './game';
-import { getTheme } from './themes';
 
 class App extends Component {
   state = {
-    theme: getTheme(),
-  };
-
-  handleChangeTheme = name => {
-    this.setState({ theme: getTheme(name) });
+    theme: {
+      name: 'Light Orange',
+      primary: 'rgba(255,90,0,1)',
+      secondary: 'rgba(0,0,0,1)',
+      board: 'rgba(255,90,0,0.7)',
+      overlay: 'rgba(255,90,0,0.2)',
+      background: 'white',
+      original: 'rgba(102, 102, 102,1)',
+      inverted: 'black',
+    },
   };
 
   render() {
@@ -26,13 +30,7 @@ class App extends Component {
       <StyledApp>
         <ThemeProvider theme={theme}>
           <StyledApp>
-            <Fragment>
-              <Board
-                changeTheme={this.handleChangeTheme}
-                onComplete={onComplete}
-                difficulty={difficulty}
-              />
-            </Fragment>
+            <Board onComplete={onComplete} difficulty={difficulty} />
           </StyledApp>
         </ThemeProvider>
       </StyledApp>

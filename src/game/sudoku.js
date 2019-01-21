@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import { easy, medium, hard } from 't-sudoku-generator';
 import { EventEmitter } from 'events';
 
-import { ThemeSelector } from '../themes';
 import Square from '../game-square/sudoku-square';
 import ButtonBar from '../button/button-bar';
 
-import { Main, Background, Board } from './sudoku.styled';
-import { Timer } from '../timer';
+import { Main, Board } from './sudoku.styled';
+
 import { Reset } from '../reset';
 
 export const _events = new EventEmitter();
@@ -38,7 +37,6 @@ const defaultState = {
 
 class Sudoku extends React.Component {
   static propTypes = {
-    changeTheme: PropTypes.func.isRequired,
     difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']),
     onComplete: PropTypes.func,
   };
@@ -64,7 +62,6 @@ class Sudoku extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keyup', this.onKeypress);
     _events.removeAllListeners('reset');
-    _events.removeAllListeners('cycle-theme');
   }
 
   componentDidUpdate(prevProps) {
@@ -80,9 +77,6 @@ class Sudoku extends React.Component {
 
     // if keypress is the escape or delete key, delete the value set
     if (charCode === 27 || charCode === 8) this.handleButtonPress(null);
-
-    if (charCode === 39) _events.emit('cycle-theme', 'next');
-    if (charCode === 37) _events.emit('cycle-theme', 'prev');
   };
 
   setSelectedBoardIndexes = ({ ...indexes }) => this.setState({ ...indexes });
@@ -301,28 +295,19 @@ class Sudoku extends React.Component {
 
   render() {
     const {
-      startDate,
       noteEnabled,
       selectedBoardIndex,
       notes,
       board,
-      difficulty,
       showReset,
     } = this.state;
 
-    const { changeTheme } = this.props;
-
     return (
       <Fragment>
-        <Background />
         {showReset && (
           <Reset onAction={this.resetBoard} onClose={this.toggleReset} />
         )}
-        <Main>
-          <ThemeSelector onChange={changeTheme} />
-          <Timer startTime={startDate} difficulty={difficulty} />
-          {board.map(this.buildBoard)}
-        </Main>
+        <Main>{board.map(this.buildBoard)}</Main>
         <ButtonBar
           onClick={this.handleButtonPress}
           enabledButtons={
