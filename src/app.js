@@ -27,13 +27,11 @@ class App extends Component {
     const { theme } = this.state;
     const { onComplete, difficulty } = this.props;
     return (
-      <StyledApp>
-        <ThemeProvider theme={theme}>
-          <StyledApp>
-            <Board onComplete={onComplete} difficulty={difficulty} />
-          </StyledApp>
-        </ThemeProvider>
-      </StyledApp>
+      <ThemeProvider theme={theme}>
+        <StyledApp>
+          <Board onComplete={onComplete} difficulty={difficulty} />
+        </StyledApp>
+      </ThemeProvider>
     );
   }
 }
