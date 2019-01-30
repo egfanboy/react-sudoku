@@ -9,7 +9,6 @@ export const Main = styled.div`
   width: 460px;
   overflow: hidden;
   color: ${({ theme }) => `${theme.inverted}`};
-  z-index: 99;
 `;
 
 export const Board = styled.div`
