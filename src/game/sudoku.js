@@ -198,7 +198,7 @@ class Sudoku extends React.Component {
   buildRow = rowIndex => ({ value: initialValue, answer }, index) => {
     const { notes, difficulty, values } = this.state;
     const { selectedBoardIndex, selectedIndex, selectedRowIndex } = this.state;
-
+    const { hide } = this.props;
     const boardIndex = this.getBoardIndex(index + 1, rowIndex + 1);
     const value = this.getValue(boardIndex);
 
@@ -212,6 +212,7 @@ class Sudoku extends React.Component {
         rowIndex={rowIndex + 1}
         boardIndex={boardIndex}
         index={index + 1}
+        hide={hide}
         selectedIndex={selectedIndex}
         selectedRowIndex={selectedRowIndex}
         selectedBoardIndex={selectedBoardIndex}
