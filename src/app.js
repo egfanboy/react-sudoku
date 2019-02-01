@@ -25,11 +25,11 @@ class App extends Component {
 
   render() {
     const { theme } = this.state;
-    const { onComplete, difficulty } = this.props;
+    const { onComplete, difficulty, hide } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <StyledApp>
-          <Board onComplete={onComplete} difficulty={difficulty} />
+          <Board hide={hide} onComplete={onComplete} difficulty={difficulty} />
         </StyledApp>
       </ThemeProvider>
     );

@@ -8,12 +8,12 @@ import App from '../../src/app';
 class Game extends React.Component {
   state = {
     difficulty: 'easy',
+    hide: false,
   };
 
   render() {
     return (
       <div>
-        <App difficulty={this.state.difficulty} onComplete={action('done')} />
         <button onClick={() => this.setState({ difficulty: 'easy' })}>
           Easy
         </button>
@@ -23,6 +23,14 @@ class Game extends React.Component {
         <button onClick={() => this.setState({ difficulty: 'hard' })}>
           Hard
         </button>
+        <button onClick={() => this.setState({ hide: !this.state.hide })}>
+          {this.state.hide ? 'Reveal' : 'Hide'}
+        </button>
+        <App
+          difficulty={this.state.difficulty}
+          onComplete={action('done')}
+          hide={this.state.hide}
+        />
       </div>
     );
   }

@@ -60,6 +60,7 @@ class SudokuSquare extends React.Component {
       theme,
       notes,
       hasError,
+      hide,
     } = this.props;
 
     return (
@@ -79,7 +80,7 @@ class SudokuSquare extends React.Component {
           })
         }
       >
-        {notes.length ? (
+        {hide ? null : notes.length ? (
           <NotesWrapper values={notes} />
         ) : (
           <ValueWrapper
