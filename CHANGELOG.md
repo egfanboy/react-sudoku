@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 🦄 Enhancement 🦄
 
+- **Added** the ability to track if a game was validated when calling `onComplete` [#93](https://github.com/EricTurf/react-sudoku/pull/93)
 - **Added** the ability to provide a function for the reset and validate modals [#92](https://github.com/EricTurf/react-sudoku/pull/92)
 
 ## 2.0.3 [2018-02-01]
