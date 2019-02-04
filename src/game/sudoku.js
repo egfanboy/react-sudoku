@@ -35,6 +35,7 @@ const defaultState = {
   moveCount: 0,
   showReset: false,
   showValidate: false,
+  hasValidated: false,
 };
 
 class Sudoku extends React.Component {
@@ -208,8 +209,8 @@ class Sudoku extends React.Component {
   };
 
   validate = () => {
-    const { done, values, startDate, moveCount } = this.state;
-    const { onComplete, difficulty } = this.props;
+    const { done, values, startDate, moveCount, hasValidated } = this.state;
+    const { onComplete } = this.props;
 
     let errors = false;
     Object.values(values).forEach(({ value, answer }) => {
@@ -218,9 +219,8 @@ class Sudoku extends React.Component {
 
     if (done && !errors)
       onComplete({
-        completionTime: Date.now() - startDate,
-        difficulty,
         moves: moveCount,
+        hasValidated,
       });
   };
 
@@ -326,6 +326,7 @@ class Sudoku extends React.Component {
       values: validatedValues,
       showValidate: false,
       moveCount: this.state.moveCount + 1,
+      hasValidated: true,
     });
   };
 
