@@ -30,10 +30,51 @@ class Game extends React.Component {
           difficulty={this.state.difficulty}
           onComplete={action('done')}
           hide={this.state.hide}
+          {...this.props}
         />
       </div>
     );
   }
 }
 
-storiesOf('Game', module).add('default', () => <Game />);
+class ResetModal extends React.Component {
+  render() {
+    const { primaryAction, cancelAction } = this.props;
+    return (
+      <div>
+        I am a component and primaryAction {primaryAction ? '' : 'not'} defined.
+        cancelAction
+        {cancelAction ? '' : 'not'} defined.
+      </div>
+    );
+  }
+}
+
+storiesOf('Game', module)
+  .add('default', () => <Game />)
+  .add('Custom Restart ', () => (
+    <Game
+      CustomResetModal={({ primaryAction, cancelAction }) => {
+        return (
+          <div>
+            Custom reason modal primaryAction {primaryAction ? '' : 'not'}{' '}
+            defined. cancelAction
+            {cancelAction ? '' : 'not'} defined.
+          </div>
+        );
+      }}
+    />
+  ))
+  .add('Custom Validate ', () => (
+    <Game
+      CustomValidateModal={({ primaryAction, cancelAction }) => {
+        return (
+          <div>
+            Custom validate modal primaryAction {primaryAction ? '' : 'not'}{' '}
+            defined. cancelAction
+            {cancelAction ? '' : 'not'} defined.
+          </div>
+        );
+      }}
+    />
+  ));

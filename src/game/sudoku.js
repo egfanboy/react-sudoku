@@ -10,6 +10,7 @@ import ButtonBar from '../button/button-bar';
 import { Main, Board } from './sudoku.styled';
 
 import { Reset } from '../reset';
+import { Validate } from '../validate';
 
 export const _events = new EventEmitter();
 
@@ -33,12 +34,18 @@ const defaultState = {
   history: [],
   moveCount: 0,
   showReset: false,
+  showValidate: false,
 };
 
 class Sudoku extends React.Component {
   static propTypes = {
     difficulty: PropTypes.oneOf(['easy', 'medium', 'hard']),
     onComplete: PropTypes.func,
+    CustomResetModal: PropTypes.oneOfType([PropTypes.symbol, PropTypes.func]),
+    CustomValidateModal: PropTypes.oneOfType([
+      PropTypes.symbol,
+      PropTypes.func,
+    ]),
   };
   static defaultProps = { difficulty: 'easy', onComplete: () => null };
 
@@ -114,6 +121,35 @@ class Sudoku extends React.Component {
 
   getBoardIndex = (index, rowIndex) => rowIndex * 9 - (9 - index);
 
+  buildResetModal() {
+    const { CustomResetModal } = this.props;
+
+    const props = {
+      primaryAction: this.resetBoard,
+      cancelAction: this.toggleReset,
+    };
+
+    if (!CustomResetModal) return <Reset {...props} />;
+
+    return CustomResetModal(props);
+  }
+
+  buildValidateModal() {
+    const { CustomValidateModal } = this.props;
+
+    const props = {
+      primaryAction: this.validateCurrentBoard,
+      cancelAction: this.toggleValidate,
+    };
+
+    if (!CustomValidateModal) return <Validate {...props} />;
+
+    return CustomValidateModal(props);
+  }
+
+  toggleValidate = () =>
+    this.setState({ showValidate: !this.state.showValidate });
+
   handleButtonPress = value => {
     const {
       selectedBoardIndex,
@@ -129,7 +165,7 @@ class Sudoku extends React.Component {
 
     if (value === 'undo') this.undoLastMove();
     if (value === 'reset') this.toggleReset();
-    if (value === 'validate') this.validateCurrentBoard();
+    if (value === 'validate') this.toggleValidate();
 
     if (selectedBoardIndex === null) return;
     if (selectedBoardIndexValue.isOriginal) return;
@@ -288,6 +324,7 @@ class Sudoku extends React.Component {
 
     this.setState({
       values: validatedValues,
+      showValidate: false,
       moveCount: this.state.moveCount + 1,
     });
   };
@@ -300,14 +337,14 @@ class Sudoku extends React.Component {
       selectedBoardIndex,
       notes,
       board,
+      showValidate,
       showReset,
     } = this.state;
 
     return (
       <Fragment>
-        {showReset && (
-          <Reset onAction={this.resetBoard} onClose={this.toggleReset} />
-        )}
+        {showReset && this.buildResetModal()}
+        {showValidate && this.buildValidateModal()}
         <Main>{board.map(this.buildBoard)}</Main>
         <ButtonBar
           onClick={this.handleButtonPress}
