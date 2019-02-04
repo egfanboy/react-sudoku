@@ -25,11 +25,23 @@ class App extends Component {
 
   render() {
     const { theme } = this.state;
-    const { onComplete, difficulty, hide } = this.props;
+    const {
+      onComplete,
+      difficulty,
+      hide,
+      CustomResetModal,
+      CustomValidateModal,
+    } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <StyledApp>
-          <Board hide={hide} onComplete={onComplete} difficulty={difficulty} />
+          <Board
+            hide={hide}
+            onComplete={onComplete}
+            difficulty={difficulty}
+            CustomResetModal={CustomResetModal}
+            CustomValidateModal={CustomValidateModal}
+          />
         </StyledApp>
       </ThemeProvider>
     );

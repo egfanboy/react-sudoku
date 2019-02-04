@@ -7,7 +7,7 @@ import {
   CancelButton,
   ButtonBox,
   Message,
-} from './reset.styled';
+} from './validate.styled';
 
 export default class Reset extends React.Component {
   static propTypes = {
@@ -20,7 +20,10 @@ export default class Reset extends React.Component {
 
     return (
       <Main>
-        <Message>Would like to reset the game?</Message>
+        <Message>
+          Validating your sudoku board will disqualify your score. Do you still
+          wish to validate your board?
+        </Message>
         <ButtonBox>
           <CancelButton onClick={cancelAction}>No</CancelButton>
           <ConfirmButton onClick={primaryAction}>Yes</ConfirmButton>
