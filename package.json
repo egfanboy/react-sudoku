@@ -6,10 +6,7 @@
   "scripts": {
     "precommit": "pretty-quick",
     "prepublishOnly": "yarn build",
-    "start": "node server.js",
-    "start:dev": "node scripts/start.js",
     "build": "webpack --progress --config webpack.config.js --colors",
-    "test": "node scripts/test.js --env=jsdom",
     "storybook": "start-storybook -p 9001"
   },
   "browserslist": {

@@ -18,10 +18,8 @@ const StyledButton = styled.div`
   margin: 5px;
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => `${theme.primary}`};
-    i {
-      color: ${({ theme }) => `${theme.primary}`};
-    }
+    color: ${({ theme, enabled }) =>
+      enabled ? `${theme.background}` : `${theme.primary}`};
   }
 `;
 
